@@ -4,9 +4,9 @@ using System.Text;
 
 namespace NEA.Tensor
 {
-    class Matrix
+    public class Matrix
     {
-        private float[,] data;
+        public float[,] data;
         private int[] shape;
 
         // Constructor for empty matrix with specified shape
@@ -29,6 +29,7 @@ namespace NEA.Tensor
             return new Matrix(rows, columns); // float arrays initialise to 0.0f by default, function simply provided for user ease
         }
 
+        // Higher-order constructor that returns matrix filled with numbers drawn from a guassian distrbution
         public static Matrix GaussianMatrix(int rows, int columns, float mean=0, float stdDev = 1)
         {
             float[,] data = new float[rows, columns];
@@ -47,10 +48,12 @@ namespace NEA.Tensor
             Random random = new Random();
             float randomFloat() { return (float)random.NextDouble(); } // gets a random float value from U(0,1)
             float s = 5;
-            var u1 = randomFloat();
-            var u2 = randomFloat();
+            float u1 = 1;
+            float u2 = 1;
             while (s > 1)
             {
+                u1 = randomFloat();
+                u2 = randomFloat();
                 u1 = 2 * u1 - 1;
                 u2 = 2 *u2 - 2;
                 s = MathF.Pow(u1, 2) + MathF.Pow(u2, 2);
