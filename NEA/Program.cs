@@ -1,4 +1,5 @@
 ﻿using System;
+using NEA.Tensor;
 
 namespace NEA
 {
@@ -6,11 +7,15 @@ namespace NEA
     {
         static void Main(string[] args)
         {
-            var matrix = Tensor.Matrix.GaussianMatrix(5, 5);
-            foreach (var item in matrix.data)
-            {
-                Console.WriteLine(item);
-            }
+            var matA = Matrix.GaussianMatrix(3, 3);
+            Console.WriteLine(matA);
+            Console.WriteLine();
+            var matB = Matrix.GaussianMatrix(3, 3);
+            Console.WriteLine(matB);
+            Console.WriteLine();
+            matA.Add(matB);
+            Console.WriteLine(matA);
+            Console.WriteLine();
         }
     }
 }
