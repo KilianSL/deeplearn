@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NEA.Tensor
 {
-    static class MatrixUtils
+    internal static class MatrixUtils
     {
         public static float[] RandomGaussian(float mean, float stdDev) // Returns an array of 2 random gaussian variables generated using the Marsaglia-Polar method
         {

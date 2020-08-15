@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace NEA.Tensor
@@ -30,7 +29,7 @@ namespace NEA.Tensor
         }
 
         // Higher-order constructor that returns matrix filled with numbers drawn from a guassian distrbution
-        public static Matrix GaussianMatrix(int rows, int columns, float mean=0, float stdDev = 1)
+        public static Matrix GaussianMatrix(int rows, int columns, float mean = 0, float stdDev = 1)
         {
             float[,] data = new float[rows, columns];
             for (int i = 0; i < rows; i++)
@@ -51,10 +50,11 @@ namespace NEA.Tensor
         {
             get
             {
-                if (Shape[1]==1) // if there is only 1 column dimension
+                if (Shape[1] == 1) // if there is only 1 column dimension
                 {
                     return data[idx, 0];
-                } else
+                }
+                else
                 {
                     throw new Exception("Matrix has more than one column - unsuitable indexing");
                 }
@@ -80,28 +80,92 @@ namespace NEA.Tensor
             }
             set
             {
-                data[row, col] = value; 
+                data[row, col] = value;
+            }
+        }
+
+        // Check matrix shape is equal to this matrix, throws error on false (DRY principal for all functions where matrix dimensions need to be equal
+        private void checkShapeEqual(Matrix A)
+        {
+            if (Shape[0] == A.Shape[0] && Shape[1] == A.Shape[1])
+            {
+                return;
+            }
+            else
+            {
+                throw new Exception("Matrix dimensions do not comform");
             }
         }
 
         // Addition Method - adds this instance of a matrix to another matrix
         public void Add(Matrix A)
         {
-            if (Shape[0] == A.Shape[0] && Shape[1] == A.Shape[1])
+            checkShapeEqual(A);
+            var newData = new float[Shape[0], Shape[1]];
+            for (int i = 0; i < Shape[0]; i++)
             {
-                var newData = new float[Shape[0], Shape[1]];
-                for (int i = 0; i < Shape[0]; i++)
+                for (int j = 0; j < Shape[1]; j++)
                 {
-                    for (int j = 0; j < Shape[1]; j++)
+                    newData[i, j] = data[i, j] + A[i, j];
+                }
+            }
+            data = newData;
+        }
+
+       // Elementwise product
+        public void Hadamard(Matrix A)
+        {
+            checkShapeEqual(A);
+            var newData = new float[Shape[0], Shape[1]];
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                for (int j = 0; j < Shape[1]; j++)
+                {
+                    newData[i, j] = data[i, j] * A[i, j];
+                }
+            }
+            data = newData;
+        }
+        
+        // Dot product method - returns a float dot product
+        public float Dot(Matrix A)
+        {
+            checkShapeEqual(A);
+            float result = 0;
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                for (int j = 0; j < Shape[1]; j++)
+                {
+                    result = +data[i, j] * A[i, j];
+                }
+            }
+            return result;
+        }
+
+        // Flatten and reshape method - reshapes matrix values to the specified shape
+        public void Reshape(int rows, int cols)
+        {
+            if (Shape[0]*Shape[1] != rows * cols)
+            {
+                throw new Exception("Matrix does not fit reshape dimensions");
+            }
+            var newData = new float[rows, cols];
+            int currentRow = 0;
+            int currentCol = 0;
+            for (int i = 0; i < rows * cols; i++)
+            {
+                for (int j = 0; j < Shape[1]; j++)
+                {
+                    newData[currentRow, currentCol] = data[i, j];
+                    currentCol++;
+                    if (currentCol==cols)
                     {
-                        newData[i, j] = data[i, j] + A[i, j];
+                        currentRow++;
+                        currentCol = 0;
                     }
                 }
-                data = newData;
-            } else
-            {
-                throw new Exception("Matrix dimensions do not comform");
             }
+            data = newData;
         }
 
         public override string ToString()

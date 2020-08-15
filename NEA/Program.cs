@@ -1,21 +1,23 @@
-﻿using System;
-using NEA.Tensor;
+﻿using NEA.Tensor;
+using System;
 
 namespace NEA
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var matA = Matrix.GaussianMatrix(3, 3);
+            var matA = Matrix.GaussianMatrix(2, 3);
             Console.WriteLine(matA);
             Console.WriteLine();
-            var matB = Matrix.GaussianMatrix(3, 3);
+            var matB = Matrix.GaussianMatrix(2, 3);
             Console.WriteLine(matB);
             Console.WriteLine();
             matA.Add(matB);
             Console.WriteLine(matA);
             Console.WriteLine();
+            matA.Reshape(6, 1);
+            Console.WriteLine(matA);
         }
     }
 }
