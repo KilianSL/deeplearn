@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Text;
 using System.Collections;
+using System.Text;
 
 namespace NEA.Tensor
 {
@@ -91,7 +91,7 @@ namespace NEA.Tensor
             foreach (var element in data)
             {
                 yield return element; // returns a value while retaining function scope to resume execution and return the next value
-            }  
+            }
         }
 
         // IEquatable - IsEqual - Returns true if the argument matrix is equal to this matrix
@@ -103,15 +103,22 @@ namespace NEA.Tensor
                 {
                     for (int j = 0; j < Shape[1]; j++)
                     {
-                        if (this[i,j] != A[i,j])
+                        if (this[i, j] != A[i, j])
                         {
                             return false;
                         }
                     }
                 }
-                return true; 
+                return true;
             }
             return false;
+        }
+
+        // Override of GetHashCode needed for proper performance of Assert.IsEqual in unit testing - hash code is used to check equality
+        // TODO Refine
+        public override int GetHashCode()
+        {
+            return Shape[0] * Shape[1];
         }
 
         // Check matrix shape is equal to this matrix, throws error on false (DRY principal for all functions where matrix dimensions need to be equal
@@ -142,7 +149,7 @@ namespace NEA.Tensor
             data = newData;
         }
 
-       // Elementwise product
+        // Elementwise product
         public void Hadamard(Matrix A)
         {
             checkShapeEqual(A);
@@ -156,7 +163,7 @@ namespace NEA.Tensor
             }
             data = newData;
         }
-        
+
         // Dot product method - returns a float dot product
         public float Dot(Matrix A)
         {
@@ -175,7 +182,7 @@ namespace NEA.Tensor
         // Flatten and reshape method - reshapes matrix values to the specified shape
         public void Reshape(int rows, int cols)
         {
-            if (Shape[0]*Shape[1] != rows * cols)
+            if (Shape[0] * Shape[1] != rows * cols)
             {
                 throw new Exception("Matrix does not fit reshape dimensions");
             }
@@ -188,7 +195,7 @@ namespace NEA.Tensor
                 {
                     newData[currentRow, currentCol] = data[i, j];
                     currentCol++;
-                    if (currentCol==cols)
+                    if (currentCol == cols)
                     {
                         currentRow++;
                         currentCol = 0;
@@ -196,6 +203,12 @@ namespace NEA.Tensor
                 }
             }
             data = newData;
+        }
+
+        // Returns a new float array storing the data from the matrix
+        public float[,] ToArray()
+        {
+            return data;
         }
 
         public override string ToString()

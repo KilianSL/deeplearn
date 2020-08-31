@@ -27,5 +27,16 @@ namespace neaTests
             Assert.AreEqual(expected, matA);
 
         }
+
+
+        // Tests the equals method works - if this fails disregard all other unit tests
+        [TestMethod]
+        public void Equals_ExpectedData_ReturnsTrue()
+        {
+            var matA = new Matrix(dataA);
+            var matB = new Matrix(dataB);
+
+            Assert.IsTrue(matA.Equals(matB));
+        }
     }
 }
