@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NEA", "NEA.csproj", "{EBC82512-C02E-4785-9FE5-9F761203A381}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NEA", "NEA.csproj", "{EBC82512-C02E-4785-9FE5-9F761203A381}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neaTests", "..\neaTests\neaTests.csproj", "{A7CDD23F-921D-4B51-B400-745C97F3AC92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{EBC82512-C02E-4785-9FE5-9F761203A381}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBC82512-C02E-4785-9FE5-9F761203A381}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBC82512-C02E-4785-9FE5-9F761203A381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7CDD23F-921D-4B51-B400-745C97F3AC92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7CDD23F-921D-4B51-B400-745C97F3AC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7CDD23F-921D-4B51-B400-745C97F3AC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7CDD23F-921D-4B51-B400-745C97F3AC92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

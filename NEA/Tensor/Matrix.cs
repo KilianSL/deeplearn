@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Text;
+using System.Collections;
 
 namespace NEA.Tensor
 {
-    public class Matrix
+    public class Matrix : IEnumerable, IEquatable<Matrix>
     {
         public float[,] data;
         public int[] Shape { get; private set; }
@@ -82,6 +83,35 @@ namespace NEA.Tensor
             {
                 data[row, col] = value;
             }
+        }
+
+        // IEnumerable - Get Enumerator - Returns enumerable collection meaning the Matrix class can be used in foreach loops etc.
+        public IEnumerator GetEnumerator()
+        {
+            foreach (var element in data)
+            {
+                yield return element; // returns a value while retaining function scope to resume execution and return the next value
+            }  
+        }
+
+        // IEquatable - IsEqual - Returns true if the argument matrix is equal to this matrix
+        public bool Equals(Matrix A)
+        {
+            if (Shape[0] == A.Shape[0] && Shape[1] == A.Shape[1])
+            {
+                for (int i = 0; i < Shape[0]; i++)
+                {
+                    for (int j = 0; j < Shape[1]; j++)
+                    {
+                        if (this[i,j] != A[i,j])
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true; 
+            }
+            return false;
         }
 
         // Check matrix shape is equal to this matrix, throws error on false (DRY principal for all functions where matrix dimensions need to be equal
