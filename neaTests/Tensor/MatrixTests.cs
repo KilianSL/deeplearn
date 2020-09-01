@@ -91,5 +91,18 @@ namespace neaTests
 
             Assert.AreEqual(expected, matA);
         }
+
+        [TestMethod]
+        public void MatrixTranspose_ExpectedData()
+        {
+            var expected = new Matrix(new float[,] { { 1, 3, 5 }, { 2, 4, 6 } });
+            var matA = new Matrix(new float[,] { { 1, 2 }, { 3, 4 }, { 5, 6 } });
+
+            matA.Transpose();
+
+            TestContext.WriteLine(matA.ToString());
+
+            Assert.AreEqual(expected, matA);
+        }
     }
 }

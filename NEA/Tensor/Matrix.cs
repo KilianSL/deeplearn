@@ -226,6 +226,21 @@ namespace NEA.Tensor
             Shape = new int[] { rows, cols };
         }
 
+        // Matrix transpose algorithm
+        public void Transpose()
+        {
+            var newData = new float[Shape[1], Shape[0]];
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                for (int j = 0; j < Shape[1]; j++)
+                {
+                    newData[j, i] = this[i, j];
+                }
+            }
+            data = newData;
+            Shape = new int[] { Shape[1], Shape[0] };
+        }
+
         // Returns a new float array storing the data from the matrix
         public float[,] ToArray()
         {
