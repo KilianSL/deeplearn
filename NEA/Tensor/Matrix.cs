@@ -86,6 +86,7 @@ namespace NEA.Tensor
         }
 
         // IEnumerable - Get Enumerator - Returns enumerable collection meaning the Matrix class can be used in foreach loops etc.
+        // Enumerates through each column then cycles to the next row
         public IEnumerator GetEnumerator()
         {
             foreach (var element in data)
@@ -164,7 +165,7 @@ namespace NEA.Tensor
             {
                 for (int j = 0; j < Shape[1]; j++)
                 {
-                    result = result + this[i, j] * A[i, j];
+                    result += this[i, j] * A[i, j];
                 }
             }
             return result;
@@ -183,39 +184,46 @@ namespace NEA.Tensor
                         float sum = 0;
                         for (int k = 0; k < A.Shape[1]; k++)
                         {
-                            sum = sum + A[i, k] * this[k, j];
+                            sum += A[i, k] * this[k, j];
                         }
                         result[i, j] = sum;
                     }
                 }
                 data = result;
+                Shape[0] = A.Shape[0];
+            }
+            else
+            {
+                throw new Exception("Incorrect dimensions for matrix transform");
             }
         }
 
         // Flatten and reshape method - reshapes matrix values to the specified shape
+        // Uses for loops to "flatten" the matrix, then reads to the appropriate row and column of the target matrix
         public void Reshape(int rows, int cols)
         {
             if (Shape[0] * Shape[1] != rows * cols)
             {
                 throw new Exception("Matrix does not fit reshape dimensions");
             }
-            var newData = new float[rows, cols];
-            int currentRow = 0;
-            int currentCol = 0;
-            for (int i = 0; i < rows * cols; i++)
+            var flattenedData = new float[rows * cols];
+            for (int i = 0; i < Shape[0]; i++)
             {
                 for (int j = 0; j < Shape[1]; j++)
                 {
-                    newData[currentRow, currentCol] = data[i, j];
-                    currentCol++;
-                    if (currentCol == cols)
-                    {
-                        currentRow++;
-                        currentCol = 0;
-                    }
+                    flattenedData[i * j] = this[i, j];
+                }
+            }
+            var newData = new float[rows, cols];
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    newData[i, j] = flattenedData[i * j];
                 }
             }
             data = newData;
+            Shape = new int[] { rows, cols };
         }
 
         // Returns a new float array storing the data from the matrix

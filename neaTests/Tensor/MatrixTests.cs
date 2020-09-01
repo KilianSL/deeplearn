@@ -11,7 +11,7 @@ namespace neaTests
 
         // "Expected" Data for each test - 3x3 square matrix filled with 2s
         // Stored here as float[,] to ensure that the actual objects used in tests remain decoupled
-        private float[,]  dataA = new float[,] { { 2, 2, 2 }, { 2, 2, 2 }, { 2, 2, 2 } };
+        private float[,] dataA = new float[,] { { 2, 2, 2 }, { 2, 2, 2 }, { 2, 2, 2 } };
 
         private float[,] dataB = new float[,] { { 2, 2, 2 }, { 2, 2, 2 }, { 2, 2, 2 } };
 
@@ -40,7 +40,6 @@ namespace neaTests
 
             // Assert
             Assert.AreEqual(expected, matA);
-
         }
 
         [TestMethod]
@@ -83,7 +82,7 @@ namespace neaTests
         [TestMethod]
         public void MatrixReshape_ExpectedData_Returns9x1()
         {
-            var expected = new Matrix(new float[,] { { 2, 2, 2, 2, 2, 2, 2, 2, 2 } });
+            var expected = new Matrix(new float[,] { { 2 }, { 2 }, { 2 }, { 2 }, { 2 }, { 2 }, { 2 }, { 2 }, { 2 } });
             var matA = new Matrix(dataA);
 
             matA.Reshape(9, 1);
