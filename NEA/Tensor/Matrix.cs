@@ -4,10 +4,10 @@ using System.Text;
 
 namespace NEA.Tensor
 {
-    public class Matrix : IEnumerable, IEquatable<Matrix>
+    public class Matrix : IEnumerable
     {
         public float[,] data;
-        public int[] Shape { get; private set; }
+        public int[] Shape { get; private set; } // Shape can only be set internally, but the field is publically accessible
 
         // Constructor for empty matrix with specified shape
         public Matrix(int rows, int columns)
@@ -94,31 +94,22 @@ namespace NEA.Tensor
             }
         }
 
-        // IEquatable - IsEqual - Returns true if the argument matrix is equal to this matrix
-        public bool Equals(Matrix A)
+        // IsEqual - Returns true if the argument matrix is equal to this matrix
+        // Works by comparing the matrix string representations
+        public override bool Equals(object obj)
         {
-            if (Shape[0] == A.Shape[0] && Shape[1] == A.Shape[1])
+            if (obj.ToString() == this.ToString())
             {
-                for (int i = 0; i < Shape[0]; i++)
-                {
-                    for (int j = 0; j < Shape[1]; j++)
-                    {
-                        if (this[i, j] != A[i, j])
-                        {
-                            return false;
-                        }
-                    }
-                }
                 return true;
             }
             return false;
         }
 
         // Override of GetHashCode needed for proper performance of Assert.IsEqual in unit testing - hash code is used to check equality
-        // TODO Refine
+        // Implemented as the square dot product>>
         public override int GetHashCode()
         {
-            return Shape[0] * Shape[1];
+            return (int)Dot(this);
         }
 
         // Check matrix shape is equal to this matrix, throws error on false (DRY principal for all functions where matrix dimensions need to be equal
@@ -143,7 +134,7 @@ namespace NEA.Tensor
             {
                 for (int j = 0; j < Shape[1]; j++)
                 {
-                    newData[i, j] = data[i, j] + A[i, j];
+                    newData[i, j] = this[i, j] + A[i, j];
                 }
             }
             data = newData;
@@ -158,7 +149,7 @@ namespace NEA.Tensor
             {
                 for (int j = 0; j < Shape[1]; j++)
                 {
-                    newData[i, j] = data[i, j] * A[i, j];
+                    newData[i, j] = this[i, j] * A[i, j];
                 }
             }
             data = newData;
@@ -173,10 +164,32 @@ namespace NEA.Tensor
             {
                 for (int j = 0; j < Shape[1]; j++)
                 {
-                    result = +data[i, j] * A[i, j];
+                    result = result + this[i, j] * A[i, j];
                 }
             }
             return result;
+        }
+
+        // Matrix transform method - does A x This
+        public void Transform(Matrix A)
+        {
+            if (Shape[0] == A.Shape[1])
+            {
+                var result = new float[A.Shape[0], Shape[1]];
+                for (int i = 0; i < A.Shape[0]; i++)
+                {
+                    for (int j = 0; j < Shape[1]; j++)
+                    {
+                        float sum = 0;
+                        for (int k = 0; k < A.Shape[1]; k++)
+                        {
+                            sum = sum + A[i, k] * this[k, j];
+                        }
+                        result[i, j] = sum;
+                    }
+                }
+                data = result;
+            }
         }
 
         // Flatten and reshape method - reshapes matrix values to the specified shape
