@@ -6,7 +6,7 @@ namespace NEA.Tensor
 {
     public class Matrix : IEnumerable
     {
-        public float[,] data;
+        private float[,] data;
         public int[] Shape { get; private set; } // Shape can only be set internally, but the field is publically accessible
 
         // Constructor for empty matrix with specified shape
