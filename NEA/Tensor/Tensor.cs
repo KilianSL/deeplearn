@@ -13,6 +13,8 @@ namespace NEA.Tensor
             this.Shape = new int[] { batches, rows, columns };
         }
 
+
+        // Indexing methods for the Tensor, implemented as per the documentation
         public float this[int idx]
         {
             get
@@ -56,7 +58,7 @@ namespace NEA.Tensor
             {
                 if (Shape[0] == 1)
                 {
-                    data[0][row, col] = value; // will handle error in the case where the matrix is not an Nx1 vector
+                    data[0][row, col] = value; 
                 }
                 else
                 {
@@ -69,12 +71,18 @@ namespace NEA.Tensor
         {
             get
             {
-                return data[batch][row, col]; // will handle error in the case where the matrix is not an Nx1 vector
+                return data[batch][row, col]; 
             }
             set
             {
                 data[batch][row, col] = value;
             }
+        }
+
+        // Gets a specific item from the batched tensor 
+        public Matrix GetItem(int idx)
+        {
+            return data[idx];
         }
     }
 }
