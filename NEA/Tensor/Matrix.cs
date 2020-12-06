@@ -29,7 +29,7 @@ namespace NEA.Tensor
             return new Matrix(rows, columns); // float arrays initialise to 0.0f by default, function simply provided for user ease
         }
 
-        // Higher-order constructor that returns matrix filled with numbers drawn from a guassian distrbution
+        // Higher-order constructor that returns matrix filled with numbers drawn from a gaussian distrbution
         public static Matrix GaussianMatrix(int rows, int columns, float mean = 0, float stdDev = 1)
         {
             float[,] data = new float[rows, columns];
@@ -99,18 +99,39 @@ namespace NEA.Tensor
         // Works by comparing the matrix string representations
         public override bool Equals(object obj)
         {
-            if (obj.ToString() == this.ToString())
+            if (obj is Matrix  )
             {
-                return true;
+                return this.ToString() == obj.ToString();
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         // Override of GetHashCode needed for proper performance of Assert.IsEqual in unit testing - hash code is used to check equality
-        // Implemented as the square dot product>>
+        // Implemented as the first 32-bit integer of the MD5 hash of the matrix string representation. 
         public override int GetHashCode()
         {
-            return (int)Dot(this);
+            string matrixIdentifier = this.ToString();
+            using var md5 = System.Security.Cryptography.MD5.Create();
+            // The utf8 encoding of the string as a byte array
+            byte[] inputBytes = Encoding.UTF8.GetBytes(matrixIdentifier);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+            // MD5 implements the IDisposable interface, so needs to be explicitely disposed to free up allocated resources
+            md5.Dispose();
+
+            // First 4 bytes (32bits) converted to a single Int32 hash code
+            // Array is treated in a big-endian order
+            int hashCode = 0;
+            for (int i = 3; i >= 0; i--)
+            {
+                hashCode += hashBytes[3 - i];
+                hashCode <<= 8 * i; 
+            }
+            
+            return hashCode;
+            
         }
 
         // Check matrix shape is equal to this matrix, throws error on false (DRY principal for all functions where matrix dimensions need to be equal
@@ -201,7 +222,7 @@ namespace NEA.Tensor
         // Flatten and reshape method - reshapes matrix values to the specified shape
         // Uses for loops to "flatten" the matrix, then reads to the appropriate row and column of the target matrix
         public void Reshape(int rows, int cols)
-        {
+        { 
             if (Shape[0] * Shape[1] != rows * cols)
             {
                 throw new Exception("Matrix does not fit reshape dimensions");
