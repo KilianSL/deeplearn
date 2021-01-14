@@ -2,7 +2,7 @@
 
 namespace NEA.Tensor
 {
-    internal class Tensor
+    public class Tensor
     {
         private Matrix[] data; // The data stored in the tensor
         public int[] Shape { get; private set; } // The shape of the tensor in order [batch, matrix_rows, matrix_columns]

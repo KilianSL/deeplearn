@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq; 
+using System.Linq;
 
 namespace NEA.Utils.Data
 {
@@ -31,12 +31,34 @@ namespace NEA.Utils.Data
         /// Creates a new instance of the dataset, populating it with data from the specified path.
         /// </summary>
         /// <param name="path">The path of the target dataset. Should specify a *.csv file.</param>
-        /// <param name="dataAnnotations">Whether the target file has data annotations in the first line. Default false.</param>
+        /// <param name="dataAnnotations">Whether the target file has data annotations in the first line. Defa ult false.</param>
         /// <param name="delimiter">The character used to separate fields on each row of the file. Default comma.</param>
         public DataSet(string path, bool dataAnnotations = false, char delimiter = ',')
         {
             // Calls loadData function to assign class attributes
             LoadData(path, dataAnnotations, delimiter);
+        }
+
+        /// <summary>
+        /// Creates a dataset from a pre-populated nullable float array
+        /// </summary>
+        /// <param name="data">The data to populate the dataset with</param>
+        public DataSet(float?[][] data)
+        {
+            this.data = data;
+            this.Count = data.Length;
+        }
+
+        // Indexers
+        public float? this[int row, int column]
+        {
+            get => data[row][column];
+            set => data[row][column] = value;
+        }
+
+        public float?[] this[int index]
+        {
+            get => data[index]; 
         }
 
         /// <summary>
@@ -156,7 +178,7 @@ namespace NEA.Utils.Data
                 {
                     index = rand.Next(0, Count - 1);
                 }
-                // Creates shallow copy for sample array to avoid modifying referenced data accidentally   
+                // Creates shallow copy for sample array to avoid modifying referenced data accidentally
                 sample[i] = (float?[])data[index].Clone();
             }
             return sample;
@@ -170,7 +192,7 @@ namespace NEA.Utils.Data
         {
             for (int i = 0; i < Count; i++)
             {
-                // Creates a list from the element at that index. This allows the data to be used dynamically/. 
+                // Creates a list from the element at that index. This allows the data to be used dynamically/.
                 var item = new List<float?>(data[i]);
                 item.RemoveAt(index);
                 data[i] = item.ToArray();
@@ -183,10 +205,33 @@ namespace NEA.Utils.Data
         /// <param name="index">The row index of the item to be removed.</param>
         public void RemoveElementAt(int index)
         {
-            // Creates list of the data array, for easy element manipulation. 
+            // Creates list of the data array, for easy element manipulation.
             var dataList = new List<float?[]>(data);
             dataList.RemoveAt(index);
             data = dataList.ToArray();
+        }
+
+        /// <summary>
+        /// Splits the dataset into a training dataset and a test dataset.
+        /// </summary>
+        /// <param name="trainTestSplit">The proportion of the dataset which should be test data</param>
+        /// <returns>A tuple of (trainingdata, testdata)</returns>
+        public (DataSet train, DataSet test) TrainTestSplit(float trainTestSplit)
+        {
+            int splitPnt = (int)MathF.Floor(Count * trainTestSplit); // Finds index to split at
+            // Uses linq to split the dataset around the split point
+            var trainSet = data.Take(splitPnt).ToArray();
+            var testSet = data.Skip(splitPnt).ToArray();
+            return (new DataSet(trainSet), new DataSet(testSet));
+        }
+
+        /// <summary>
+        /// Returns the contents of the dataset as a nullable float array. 
+        /// </summary>
+        /// <returns></returns>
+        public float?[][] ToArray()
+        {
+            return data;
         }
     }
 }
