@@ -11,9 +11,9 @@ namespace neaTests
 
         // "Expected" Data for each test - 3x3 square matrix filled with 2s
         // Stored here as float[,] to ensure that the actual objects used in tests remain decoupled
-        private float[,] dataA = new float[,] { { 2, 2, 2 }, { 2, 2, 2 }, { 2, 2, 2 } };
+        private readonly float[,] dataA = new float[,] { { 2, 2, 2 }, { 2, 2, 2 }, { 2, 2, 2 } };
 
-        private float[,] dataB = new float[,] { { 2, 2, 2 }, { 2, 2, 2 }, { 2, 2, 2 } };
+        private readonly float[,] dataB = new float[,] { { 2, 2, 2 }, { 2, 2, 2 }, { 2, 2, 2 } };
 
         // Tests the equals method works - if this fails disregard all other unit tests
         [TestMethod]

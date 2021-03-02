@@ -3,7 +3,7 @@
 namespace NEA.Tensor
 {
     public class Tensor
-    {
+    { 
         private Matrix[] data; // The data stored in the tensor
         public int[] Shape { get; private set; } // The shape of the tensor in order [batch, matrix_rows, matrix_columns]
 
@@ -83,6 +83,11 @@ namespace NEA.Tensor
         public Matrix GetItem(int idx)
         {
             return data[idx];
+        }
+        // Sets a specific batch to an instance of a matrix
+        public void SetItem(int idx, Matrix m)
+        {
+            data[idx] = m;
         }
     }
 }

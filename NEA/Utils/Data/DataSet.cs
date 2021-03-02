@@ -10,7 +10,8 @@ namespace NEA.Utils.Data
         /// <summary>
         /// The number of entries in the dataset
         /// </summary>
-        public int Count { get; private set; }
+        public int Count { get {return data.Length; } private set { } }
+        public int Features { get { return data[0].Length; } private set { } }
 
         // The data held by the dataset, as a nested array. Each sub-array is one row of data.
         // Nullable as the class uses the null value for data cleaning.
@@ -23,7 +24,6 @@ namespace NEA.Utils.Data
         /// </summary>
         public DataSet()
         {
-            Count = 0;
             data = new float?[0][];
         }
 
@@ -46,7 +46,6 @@ namespace NEA.Utils.Data
         public DataSet(float?[][] data)
         {
             this.data = data;
-            this.Count = data.Length;
         }
 
         // Indexers
@@ -71,7 +70,7 @@ namespace NEA.Utils.Data
         {
             // Nested function that takes a split array of string data and converts it to an array of nullable floats
             // Added for DRY/readability
-            float?[] convertLineToDatarow(string[] line)
+            static float?[] convertLineToDatarow(string[] line)
             {
                 var dataRow = new float?[line.Length];
                 for (int i = 0; i < line.Length; i++)
@@ -118,7 +117,6 @@ namespace NEA.Utils.Data
 
             // assigns class variables accordingly
             data = datasetList.ToArray();
-            Count = datasetList.Count;
         }
 
         /// <summary>
@@ -133,7 +131,6 @@ namespace NEA.Utils.Data
 
             // Updated class attributes
             data = dataSetList.ToArray();
-            Count = dataSetList.Count;
 
             return itemsRemoved;
         }
