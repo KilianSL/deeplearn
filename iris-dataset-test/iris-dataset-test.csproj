@@ -6,4 +6,8 @@
     <RootNamespace>iris_dataset_test</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NEA\NEA.csproj" />
+  </ItemGroup>
+
 </Project>
