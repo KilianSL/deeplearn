@@ -1,17 +1,17 @@
-﻿using System;
-using NEA.Utils.Data;
+﻿using NEA.Utils.Data;
+using System;
 
 namespace iris_dataset_test
 {
-    class Program
+    internal class Program
     {
-
         // Constants
-        const string DATASET_PATH = @"C:\Users\kilian\source\Git Repos\WCGS-2021-6C-seifk\iris-dataset-test\iris.csv";
-        const int BATCH_SIZE = 32;
-        const int N_CLASSES = 3;
+        private const string DATASET_PATH = @"C:\Users\kilian\source\Git Repos\WCGS-2021-6C-seifk\iris-dataset-test\iris.csv";
 
-        static void Main(string[] args)
+        private const int BATCH_SIZE = 32;
+        private const int N_CLASSES = 3;
+
+        private static void Main(string[] args)
         {
             // Load data from CSV
             var irisDataset = new DataSet(DATASET_PATH);
@@ -23,8 +23,8 @@ namespace iris_dataset_test
             Console.WriteLine("Clean removed {0} items", itemsRemoved);
 
             // Create Dataloader
-            var dataloader = new DataLoader(irisDataset, BATCH_SIZE, new int[]  { 4 }, true, N_CLASSES);
-            Console.WriteLine("Created DataLoader \n Training Dataset Length: {0} \n Test Dataset Length: {1} \n Batch Size: {2}", dataloader.TrainSet.Length, dataloader.TestSet.Length, dataloader.BatchSize);
+            var dataloader = new DataLoader(irisDataset, BATCH_SIZE, new int[] { 4 }, true, N_CLASSES);
+            Console.WriteLine("Created DataLoader \n Training Dataset Length: {0} \n Test Dataset Length: {1} \n Batch Size: {2}", dataloader.TrainSet.Length * dataloader.BatchSize, dataloader.TestSet.Length * dataloader.BatchSize, dataloader.BatchSize);
             Console.WriteLine("First Training Vector:");
             Console.WriteLine(dataloader.TrainSet[0].input.GetItem(0).ToString());
             Console.WriteLine("First Output Vector:");

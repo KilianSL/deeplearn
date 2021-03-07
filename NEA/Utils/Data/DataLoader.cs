@@ -38,6 +38,7 @@ namespace NEA.Utils.Data
             {
                 this.TrainSet = batch(dataset, batchSize, targetVariable, oneHotTarget, nClasses);
             }
+            this.BatchSize = batchSize;
         }
 
         // Creates an array of batches from the dataset as defined by the parameters of the dataloader.
