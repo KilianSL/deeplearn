@@ -9,7 +9,12 @@ namespace NEA.Tensor
 
         public Tensor(int batches, int rows, int columns)
         {
-            this.data = new Matrix[] { new Matrix(rows, columns) };
+            var data = new Matrix[batches];
+            for (int i = 0; i < batches; i++)
+            {
+                data[i] = new Matrix(rows, columns);
+            }
+            this.data = data;
             this.Shape = new int[] { batches, rows, columns };
         }
 
@@ -74,7 +79,7 @@ namespace NEA.Tensor
                 return data[batch][row, col]; 
             }
             set
-            {
+              {
                 data[batch][row, col] = value;
             }
         }

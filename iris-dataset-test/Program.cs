@@ -26,7 +26,9 @@ namespace iris_dataset_test
             var dataloader = new DataLoader(irisDataset, BATCH_SIZE, new int[]  { 4 }, true, N_CLASSES);
             Console.WriteLine("Created DataLoader \n Training Dataset Length: {0} \n Test Dataset Length: {1} \n Batch Size: {2}", dataloader.TrainSet.Length, dataloader.TestSet.Length, dataloader.BatchSize);
             Console.WriteLine("First Training Vector:");
-            Console.WriteLine(dataloader.TrainSet[0].input.ToString());
+            Console.WriteLine(dataloader.TrainSet[0].input.GetItem(0).ToString());
+            Console.WriteLine("First Output Vector:");
+            Console.WriteLine(dataloader.TrainSet[0].output.GetItem(0).ToString());
         }
     }
 }
