@@ -25,6 +25,7 @@ namespace NEA.Utils.Data
         {
             dataset.Clean();
             if (shuffle)
+
             {
                 dataset.Shuffle();
             }

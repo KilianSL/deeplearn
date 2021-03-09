@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace NEA.Tensor
 {
@@ -93,6 +94,32 @@ namespace NEA.Tensor
         public void SetItem(int idx, Matrix m)
         {
             data[idx] = m;
+        }
+
+        public override int GetHashCode()
+        {
+            string tensorIdentifier = "";
+            foreach (var matrix in data)
+            {
+                tensorIdentifier += matrix.ToString();
+            }
+            using var md5 = System.Security.Cryptography.MD5.Create();
+            // The utf8 encoding of the string as a byte array
+            byte[] inputBytes = Encoding.UTF8.GetBytes(tensorIdentifier);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+            // MD5 implements the IDisposable interface, so needs to be explicitely disposed to free up allocated resources
+            md5.Dispose();
+
+            // First 4 bytes (32bits) converted to a single Int32 hash code
+            // Array is treated in a big-endian order
+            int hashCode = 0;
+            for (int i = 3; i >= 0; i--)
+            {
+                hashCode += hashBytes[3 - i];
+                hashCode <<= 8 * i;
+            }
+
+            return hashCode;
         }
     }
 }
