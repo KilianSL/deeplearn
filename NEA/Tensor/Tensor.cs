@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace NEA.Tensor
@@ -120,6 +121,141 @@ namespace NEA.Tensor
             }
 
             return hashCode;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Tensor)
+            {
+                return this.ToString() == obj.ToString();
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // Concatenates the string representations of all the matricies in the tensor, separated by line breaks and comma 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder("[");
+            foreach (var matrix in data)
+            {
+                sb.Append(matrix.ToString());
+                sb.Append(",\n");
+            }
+            sb.Append(']');
+            return sb.ToString();
+        }
+
+        // Tensorised Linear Algebra methods
+
+        // Checks that two tensors are of equal dimensions. 
+        // This method is only called in situations where mismatched tensors would cause a fatal error, hence it throws an exception
+        private void checkShapeEqual(Tensor A)
+        {
+            if (Enumerable.SequenceEqual(Shape, A.Shape))
+            {
+                return;
+            }
+            else
+            {
+                throw new Exception("Tensor dimensions do not conform");
+            }
+        }
+
+        /// <summary>
+        /// Adds Tensor A to this Tensor.
+        /// </summary>
+        public void Add(Tensor A)
+        {
+            checkShapeEqual(A);
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                data[i].Add(A.GetItem(i));
+            }
+        }
+
+        /// <summary>
+        /// Performs a Hadamard (elementwise) multiplication on this Tensor.
+        /// </summary>
+        public void Hadamard(Tensor A)
+        {
+            checkShapeEqual(A);
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                data[i].Hadamard(A.GetItem(i));
+            }
+        }
+
+        /// <summary>
+        /// Calculates the dot product between the matricies contained in two tensors. 
+        /// </summary>
+        /// <returns>An array of matrix dot products</returns>
+        public float[] Dot(Tensor A)
+        {
+            checkShapeEqual(A);
+            var dotp = new float[Shape[0]];
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                dotp[i] = data[i].Dot(A.GetItem(i));
+            }
+            return dotp;
+        }
+
+        /// <summary>
+        /// Performs a matrix transformation on the matricies contained in this tensor.
+        /// </summary>
+        public void Transform(Tensor A)
+        {
+            if (Shape[0] == A.Shape[0]) // Subsequent matrix dimension validation is implemented in Matrix.Transform()
+            {
+                for (int i = 0; i < Shape[0]; i++)
+                {
+                    data[i].Transform(A.GetItem(i));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Reshapes every matrix in the Tensor to the specified dimensions.
+        /// </summary>
+        public void Reshape(int rows, int cols)
+        {
+            if (Shape[1] * Shape[2] != rows * cols)
+            {
+                throw new Exception("Tensor does not fit reshape dimensions");
+            }
+            Shape[1] = rows;
+            Shape[2] = cols;
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                data[i].Reshape(rows, cols);
+            }
+        }
+
+        /// <summary>
+        /// Transposes every matrix in the Tensor.
+        /// </summary>
+        public void Transpose()
+        {
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                data[i].Transpose();
+            }
+        }
+
+        /// <summary>
+        /// Returns the tensor as an array of 2d float arrays. 
+        /// </summary>
+        public float[][,] ToArray()
+        {
+            var tensorArray = new float[Shape[0]][,];
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                tensorArray[i] = data[i].ToArray();
+            }
+            return tensorArray;
         }
     }
 }

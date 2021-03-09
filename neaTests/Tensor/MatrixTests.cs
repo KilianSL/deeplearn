@@ -80,7 +80,7 @@ namespace neaTests
         }
 
         [TestMethod]
-        public void MatrixReshape_ExpectedData_Returns9x1()
+        public void MatrixReshape_ExpectedData()
         {
             var expected = new Matrix(new float[,] { { 2 }, { 2 }, { 2 }, { 2 }, { 2 }, { 2 }, { 2 }, { 2 }, { 2 } });
             var matA = new Matrix(dataA);

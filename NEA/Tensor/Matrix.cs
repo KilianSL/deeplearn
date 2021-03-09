@@ -134,7 +134,7 @@ namespace NEA.Tensor
             
         }
 
-        // Check matrix shape is equal to this matrix, throws error on false (DRY principal for all functions where matrix dimensions need to be equal
+        // Check matrix shape is equal to this matrix, throws error on false (DRY principal for all functions where matrix dimensions need to be equal)
         private void checkShapeEqual(Matrix A)
         {
             if (Shape[0] == A.Shape[0] && Shape[1] == A.Shape[1])
