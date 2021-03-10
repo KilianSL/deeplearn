@@ -7,29 +7,45 @@ namespace NEA.Tensor
     public class Matrix : IEnumerable
     {
         private float[,] data;
+        /// <summary>
+        /// The dimensions of the matrix, rows x columns
+        /// </summary>
         public int[] Shape { get; private set; } // Shape can only be set internally, but the field is publically accessible
 
-        // Constructor for empty matrix with specified shape
+        /// <summary>
+        /// Initialises an empty matrix with the specified number of rows and columns.
+        /// </summary>
         public Matrix(int rows, int columns)
         {
             this.data = new float[rows, columns];
             this.Shape = new int[] { rows, columns };
         }
 
-        // Constructor for matrix object prefilled with values from a float array
+        /// <summary>
+        /// Initialises a matrix with the values in the specified array
+        /// </summary>
+        /// <param name="data">Array of values to populate the matrix</param>
         public Matrix(float[,] data)
         {
             this.data = data;
             this.Shape = new int[] { data.GetLength(0), data.GetLength(1) };
         }
 
-        // Higher-order constructor that returns a matrix filled with 0s
+        /// <summary>
+        /// Creates a matrix of the specified dimensions, with all values initialised to 0.
+        /// </summary>
+        /// <returns>A new matrix initialised with all values at 0.</returns>
         public static Matrix ZeroMatrix(int rows, int columns)
         {
             return new Matrix(rows, columns); // float arrays initialise to 0.0f by default, function simply provided for user ease
         }
 
-        // Higher-order constructor that returns matrix filled with numbers drawn from a gaussian distrbution
+        /// <summary>
+        /// Creates a matrix of the specified dimensions populated with values drawn from a random Gaussian distribution.
+        /// </summary>
+        /// <param name="mean">The mean of the distribution. Default 0</param>
+        /// <param name="stdDev">The standard deviation of the distribution. Default 1</param>
+        /// <returns>A new matrix intialised with the specified parameters.</returns>
         public static Matrix GaussianMatrix(int rows, int columns, float mean = 0, float stdDev = 1)
         {
             float[,] data = new float[rows, columns];
@@ -147,7 +163,9 @@ namespace NEA.Tensor
             }
         }
 
-        // Addition Method - adds this instance of a matrix to another matrix
+        /// <summary>
+        /// Adds matrix A to this matrix.
+        /// </summary>
         public void Add(Matrix A)
         {
             checkShapeEqual(A);
@@ -162,7 +180,10 @@ namespace NEA.Tensor
             data = newData;
         }
 
-        // Elementwise product
+        /// <summary>
+        /// Performs the Hadamard (elementwise) product between this matrix and matrix A.
+        /// </summary>
+        /// <param name="A"></param>
         public void Hadamard(Matrix A)
         {
             checkShapeEqual(A);
@@ -177,7 +198,10 @@ namespace NEA.Tensor
             data = newData;
         }
 
-        // Dot product method - returns a float dot product
+        /// <summary>
+        /// Returns the dot product of this matrix and matrix A.
+        /// </summary>
+        /// <returns>The dot product.</returns>
         public float Dot(Matrix A)
         {
             checkShapeEqual(A);
@@ -192,7 +216,9 @@ namespace NEA.Tensor
             return result;
         }
 
-        // Matrix transform method - does A x This
+        /// <summary>
+        /// Transforms this matrix by matrix A.
+        /// </summary>
         public void Transform(Matrix A)
         {
             if (Shape[0] == A.Shape[1])
@@ -221,6 +247,9 @@ namespace NEA.Tensor
 
         // Flatten and reshape method - reshapes matrix values to the specified shape
         // Uses for loops to "flatten" the matrix, then reads to the appropriate row and column of the target matrix
+        /// <summary>
+        /// Reshapes the matrix to fit the specified dimensions. 
+        /// </summary>
         public void Reshape(int rows, int cols)
         { 
             if (Shape[0] * Shape[1] != rows * cols)
@@ -248,6 +277,9 @@ namespace NEA.Tensor
         }
 
         // Matrix transpose algorithm
+        /// <summary>
+        /// Transposes the matrix.
+        /// </summary>
         public void Transpose()
         {
             var newData = new float[Shape[1], Shape[0]];
@@ -262,7 +294,10 @@ namespace NEA.Tensor
             Shape = new int[] { Shape[1], Shape[0] };
         }
 
-        // Returns a new float array storing the data from the matrix
+        /// <summary>
+        /// Returns a new float array storing the data from the matrix.
+        /// </summary>
+        /// <returns>A new float array storing the data from the matrix.</returns>
         public float[,] ToArray()
         {
             return data;

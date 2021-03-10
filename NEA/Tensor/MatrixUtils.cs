@@ -4,7 +4,12 @@ namespace NEA.Tensor
 {
     internal static class MatrixUtils
     {
-        // Returns an array of 2 random gaussian variables generated using the Marsaglia-Polar method
+        /// <summary>
+        /// Draws variables from a random Gaussian distribution.
+        /// </summary>
+        /// <param name="mean">The mean of the distribution.</param>
+        /// <param name="stdDev">The standard deviation of the distribution.</param>
+        /// <returns>An array of 2 random variables drawn from the distribution.</returns>
         public static float[] RandomGaussian(float mean, float stdDev) 
         {
             Random random = new Random();

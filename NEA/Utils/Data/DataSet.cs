@@ -11,6 +11,9 @@ namespace NEA.Utils.Data
         /// The number of entries in the dataset
         /// </summary>
         public int Count { get {return data.Length; } private set { } }
+        /// <summary>
+        /// The number of features in the dataset
+        /// </summary>
         public int Features { get { return data[0].Length; } private set { } }
 
         // The data held by the dataset, as a nested array. Each sub-array is one row of data.
@@ -31,7 +34,7 @@ namespace NEA.Utils.Data
         /// Creates a new instance of the dataset, populating it with data from the specified path.
         /// </summary>
         /// <param name="path">The path of the target dataset. Should specify a *.csv file.</param>
-        /// <param name="dataAnnotations">Whether the target file has data annotations in the first line. Defa ult false.</param>
+        /// <param name="dataAnnotations">Whether the target file has data annotations in the first line. Default false.</param>
         /// <param name="delimiter">The character used to separate fields on each row of the file. Default comma.</param>
         public DataSet(string path, bool dataAnnotations = false, char delimiter = ',')
         {
@@ -57,7 +60,8 @@ namespace NEA.Utils.Data
 
         public float?[] this[int index]
         {
-            get => data[index]; 
+            get => data[index];
+            set => data[index] = value;
         }
 
         /// <summary>
@@ -157,7 +161,7 @@ namespace NEA.Utils.Data
         /// Selects a specified number of items from the dataset.
         /// </summary>
         /// <param name="nItems">The number of items to select.</param>
-        /// <returns></returns>
+        /// <returns>A random sample of items from the dataset.</returns>
         public float?[][] RandomSample(int nItems)
         {
             // Validation of nItems

@@ -56,7 +56,7 @@ namespace NEA.Utils.Data
                 return res;
             }
 
-            int batchNo = (int)MathF.Ceiling(dataset.Count / batchSize); // number of batches
+            int batchNo = (int)MathF.Floor(dataset.Count / batchSize); // number of batches. Takes floor so addition incomplete batch is discarded. 
             var outputList = new List<float[]>(); // each output vector
             var inputList = new List<float[]>(); // each input vector
             foreach (var item in dataset.ToArray()) // Generates 2 lists => one for the outputs and one for the inputs. These are "Linked" by index. 
