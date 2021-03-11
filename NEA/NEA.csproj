@@ -5,4 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="NeuralNetwork\ActivationFunctions\" />
+    <Folder Include="NeuralNetwork\LossFunctions\" />
+    <Folder Include="NeuralNetwork\Optimisers\" />
+  </ItemGroup>
+
 </Project>
