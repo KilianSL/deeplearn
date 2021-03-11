@@ -8,8 +8,8 @@ namespace iris_dataset_test
         // Constants
         private const string DATASET_PATH = @"C:\Users\kilian\source\Git Repos\WCGS-2021-6C-seifk\iris-dataset-test\iris.csv";
 
-        private const int BATCH_SIZE = 2;
-        private const int N_CLASSES = 32;
+        private const int BATCH_SIZE = 8;
+        private const int N_CLASSES = 3;
 
         private static string arrayToString(float?[] arr)
         {
@@ -54,9 +54,9 @@ namespace iris_dataset_test
             // Create Dataloader
             var dataloader = new DataLoader(irisDataset, BATCH_SIZE, new int[] { 4 }, true, N_CLASSES);
             Console.WriteLine("Created DataLoader \n Training Dataset Length: {0} \n Test Dataset Length: {1} \n Batch Size: {2}", dataloader.TrainSet.Length * dataloader.BatchSize, dataloader.TestSet.Length * dataloader.BatchSize, dataloader.BatchSize);
-            Console.WriteLine("First Training Vector:");
+            Console.WriteLine("1st Training Vector:");
             Console.WriteLine(dataloader.TrainSet[0].input.GetItem(0).ToString());
-            Console.WriteLine("First Output Vector:");
+            Console.WriteLine("1st Output Vector:");
             Console.WriteLine(dataloader.TrainSet[0].output.GetItem(0).ToString());
         }
     }

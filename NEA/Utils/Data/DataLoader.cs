@@ -25,8 +25,8 @@ namespace NEA.Utils.Data
         {
             dataset.Clean();
             if (shuffle)
-
             {
+
                 dataset.Shuffle();
             }
             if (split)
@@ -56,15 +56,16 @@ namespace NEA.Utils.Data
                 return res;
             }
 
-            int batchNo = (int)MathF.Floor(dataset.Count / batchSize); // number of batches. Takes floor so addition incomplete batch is discarded. 
+            int batchNo = (int)MathF.Floor(dataset.Count / batchSize); // number of batches. Takes floor so addition incomplete batch is discarded.
+            // Debug.Print("Creating {0} batches from {1} items with batchSize {2}", batchNo, dataset.Count, batchSize);
             var outputList = new List<float[]>(); // each output vector
             var inputList = new List<float[]>(); // each input vector
-            foreach (var item in dataset.ToArray()) // Generates 2 lists => one for the outputs and one for the inputs. These are "Linked" by index. 
+            foreach (var item in dataset.ToArray()) // Generates 2 lists => one for the outputs and one for the inputs. These are "Linked" by index.
             {
                 if (oneHotTarget)
                 {
                     var itemList = new List<float>(Array.ConvertAll(item, value => value.GetValueOrDefault()));
-                    var output = new float[nClasses]; 
+                    var output = new float[nClasses];
                     output[(int)item[targetVariable[0]].GetValueOrDefault()] = 1; // Creates one appropriate one-hot encoding
                     itemList.RemoveAt(targetVariable[0]);
                     outputList.Add(output);
@@ -74,7 +75,7 @@ namespace NEA.Utils.Data
                 {
                     var itemList = new List<float>(Array.ConvertAll(item, value => value.GetValueOrDefault()));
                     var output = new float[targetVariable.Length];
-                    for (int outputidx = 0; outputidx < targetVariable.Length;  outputidx++)
+                    for (int outputidx = 0; outputidx < targetVariable.Length; outputidx++)
                     {
                         output[outputidx] = item[targetVariable[outputidx]].GetValueOrDefault();
                         itemList.RemoveAt(targetVariable[outputidx]); // removes target variable from input
@@ -90,10 +91,11 @@ namespace NEA.Utils.Data
                 var outputs = new Tensor.Tensor(batchSize, outputList[0].Length, 1);
                 for (int i = 0; i < batchSize; i++)
                 {
-                    inputs.SetItem(batchidx, new Tensor.Matrix(arr1dTo2d(inputList[batchidx * batchSize + i])));
-                    outputs.SetItem(batchidx, new Tensor.Matrix(arr1dTo2d(outputList[batchidx * batchSize + i])));
+                    
+                    inputs.SetItem(i, new Tensor.Matrix(arr1dTo2d(inputList[batchidx * batchSize + i])));
+                    outputs.SetItem(i, new Tensor.Matrix(arr1dTo2d(outputList[batchidx * batchSize + i])));
                 }
-                batches.Add( new Batch() { input = inputs, output = outputs });
+                batches.Add(new Batch() { input = inputs, output = outputs });
             }
             return batches.ToArray();
         }
