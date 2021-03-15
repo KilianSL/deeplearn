@@ -24,6 +24,20 @@ namespace NEA.NeuralNetwork.Layers
 
         public override Tensor Forward(Tensor x)
         {
+            var rand = new Random();
+            for (int i = 0; i < x.Shape[0]; i++) // for each sample
+            {
+                for (int j = 0; j < x.Shape[1]; j++)
+                {
+                    for (int k = 0; k < x.Shape[2]; k++)
+                    {
+                        if (rand.NextDouble() > p)
+                        {
+                            x[i, j, k] = 0;
+                        }
+                    }
+                }
+            }
             return x;
         }
     }
