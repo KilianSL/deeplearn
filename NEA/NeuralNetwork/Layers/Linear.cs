@@ -31,11 +31,13 @@ namespace NEA.NeuralNetwork.Layers
         /// <returns>The transformed input data.</returns>
         public override Tensor Forward(Tensor x)
         {
-            return new Tensor(1,1,1);
+            x.Transform(weight);
+            x.Add(bias);
+            return x;
         }
 
         /// <summary>
-        /// Randomly initialises the weights and biases for this layer. 
+        /// Randomly initialises the weights for the layer. Biases are initialised to 0. 
         /// </summary>
         public void ResetParameters()
         {

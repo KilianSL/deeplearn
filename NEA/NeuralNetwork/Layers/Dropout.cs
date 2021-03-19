@@ -9,7 +9,7 @@ namespace NEA.NeuralNetwork.Layers
     /// </summary>
     class Dropout : Layer
     {
-        private float p; // The p value for the dropout function
+        private readonly float p; // The p value for the dropout function
 
         public Dropout(int InputSize, float p)
         {
@@ -22,6 +22,9 @@ namespace NEA.NeuralNetwork.Layers
             this.OutputSize = InputSize;
         }
 
+        /// <summary>
+        /// During training, randomly zeroes some of the elements of the input tensor with probability p using samples from a uniform distribution.
+        /// </summary>
         public override Tensor Forward(Tensor x)
         {
             var rand = new Random();
