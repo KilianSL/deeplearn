@@ -164,6 +164,19 @@ namespace NEA.Tensor
             }
         }
 
+        // Checks that this tensor and a matrix are of equal dimensions. 
+        // This method is only called in situations where mismatched dimensions would cause a fatal error, hence it throws an exception
+        private void checkShapeEqual(Matrix A)
+        {
+            if (A.Shape[0] == Shape[1] && A.Shape[1] == Shape[2])
+            {
+                return;
+            } else
+            {
+                throw new Exception("Tensor dimensions do not conform");
+            }
+        }
+
         /// <summary>
         /// Adds Tensor A to this Tensor.
         /// </summary>
@@ -173,6 +186,17 @@ namespace NEA.Tensor
             for (int i = 0; i < Shape[0]; i++)
             {
                 data[i].Add(A.GetItem(i));
+            }
+        }
+        /// <summary>
+        /// Adds Matrix A to this Tensor.
+        /// </summary>
+        public void Add(Matrix A)
+        {
+            checkShapeEqual(A);
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                data[i].Add(A);
             }
         }
 
@@ -185,6 +209,17 @@ namespace NEA.Tensor
             for (int i = 0; i < Shape[0]; i++)
             {
                 data[i].Hadamard(A.GetItem(i));
+            }
+        }
+        /// <summary>
+        /// Performs a Hadamard (elementwise) multiplication on this Tensor.
+        /// </summary>
+        public void Hadamard(Matrix A)
+        {
+            checkShapeEqual(A);
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                data[i].Hadamard(A);
             }
         }
 
@@ -202,6 +237,20 @@ namespace NEA.Tensor
             }
             return dotp;
         }
+        /// <summary>
+        /// Calculates the dot product between the matricies contained in this tensor and matrix A. 
+        /// </summary>
+        /// <returns>An array of matrix dot products.</returns>
+        public float[] Dot(Matrix A)
+        {
+            checkShapeEqual(A);
+            var dotp = new float[Shape[0]];
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                dotp[i] = data[i].Dot(A);
+            }
+            return dotp;
+        }
 
         /// <summary>
         /// Performs a matrix transformation on the matricies contained in this tensor.
@@ -215,6 +264,16 @@ namespace NEA.Tensor
                     data[i].Transform(A.GetItem(i));
                 }
             }
+        }
+        /// <summary>
+        /// Performs a matrix transformation on the matricies contained in this tensor.
+        /// </summary>
+        public void Transform(Matrix A)
+        {
+                for (int i = 0; i < Shape[0]; i++)
+                {
+                    data[i].Transform(A);
+                }
         }
 
         /// <summary>
