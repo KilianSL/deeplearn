@@ -4,6 +4,9 @@ using System.Text;
 
 namespace NEA.Tensor
 {
+    /// <summary>
+    /// A class representing a matrix. Uses a single-precision Float32 data type. 
+    /// </summary>
     public class Matrix : IEnumerable
     {
         private float[,] data;
@@ -43,6 +46,8 @@ namespace NEA.Tensor
         /// <summary>
         /// Creates a matrix of the specified dimensions populated with values drawn from a random Gaussian distribution.
         /// </summary>
+        /// <param name="rows">The number of rows in the matrix.</param>
+        /// <param name="columns">The number of columns in the matrix.</param>
         /// <param name="mean">The mean of the distribution. Default 0</param>
         /// <param name="stdDev">The standard deviation of the distribution. Default 1</param>
         /// <returns>A new matrix intialised with the specified parameters.</returns>
@@ -63,6 +68,11 @@ namespace NEA.Tensor
         // single index = will take data from that row (assuming it is a column matrix)
         // double index = will index that location in the matrix in row-major order
         // will allow both GET and SET operations
+        /// <summary>
+        /// Gets a single value from the first column of the matrix. Only works with column matricies.
+        /// </summary>
+        /// <param name="idx">The row index of the required item.</param>
+        /// <returns>The float at [idx,0].</returns>
         public float this[int idx]
         {
             get
@@ -89,6 +99,12 @@ namespace NEA.Tensor
             }
         }
 
+        /// <summary>
+        /// Specifies a single value at the desired row and column indices. Allows get and set operations. 
+        /// </summary>
+        /// <param name="row">The row index.</param>
+        /// <param name="col">The column index.</param>
+        /// <returns>The float at [row,col].</returns>
         public float this[int row, int col] // Error handling for this will be handled by array implementation (IndexOutOfRange Error)
         {
             get
@@ -103,6 +119,10 @@ namespace NEA.Tensor
 
         // IEnumerable - Get Enumerator - Returns enumerable collection meaning the Matrix class can be used in foreach loops etc.
         // Enumerates through each column then cycles to the next row
+        /// <summary>
+        /// Gets an enumerable collection from this matrix.
+        /// </summary>
+        /// <returns>An IEnumerator representing the matrix.</returns>
         public IEnumerator GetEnumerator()
         {
             foreach (var element in data)
@@ -113,6 +133,11 @@ namespace NEA.Tensor
 
         // IsEqual - Returns true if the argument matrix is equal to this matrix
         // Works by comparing the matrix string representations
+        /// <summary>
+        /// Checks two objects are equal.
+        /// </summary>
+        /// <param name="obj">The object to compare this matrix to.</param>
+        /// <returns>A boolean equality value.</returns>
         public override bool Equals(object obj)
         {
             if (obj is Matrix  )
@@ -126,7 +151,11 @@ namespace NEA.Tensor
         }
 
         // Override of GetHashCode needed for proper performance of Assert.IsEqual in unit testing - hash code is used to check equality
-        // Implemented as the first 32-bit integer of the MD5 hash of the matrix string representation. 
+        // Implemented as the first 32-bit integer of the MD5 hash of the matrix string representation.
+        /// <summary>
+        /// Gets the hash value for this matrix.
+        /// </summary>
+        /// <returns>The hash value of this matrix.</returns>
         public override int GetHashCode()
         {
             string matrixIdentifier = this.ToString();
@@ -183,7 +212,6 @@ namespace NEA.Tensor
         /// <summary>
         /// Performs the Hadamard (elementwise) product between this matrix and matrix A.
         /// </summary>
-        /// <param name="A"></param>
         public void Hadamard(Matrix A)
         {
             checkShapeEqual(A);
@@ -303,6 +331,10 @@ namespace NEA.Tensor
             return data;
         }
 
+        /// <summary>
+        /// Generates a string representation of this matrix.
+        /// </summary>
+        /// <returns>A string representing this matrix.</returns>
         public override string ToString()
         {
             var sb = new StringBuilder("[");

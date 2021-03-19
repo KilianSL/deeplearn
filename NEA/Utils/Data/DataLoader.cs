@@ -3,10 +3,22 @@ using System.Collections.Generic;
 
 namespace NEA.Utils.Data
 {
+    /// <summary>
+    /// Data loader. Combines a dataset and a sampler, and provides an iterable over the given dataset.
+    /// </summary>
     public class DataLoader
     {
+        /// <summary>
+        /// The set of training data.
+        /// </summary>
         public Batch[] TrainSet;
+        /// <summary>
+        /// The set of test data.
+        /// </summary>
         public Batch[] TestSet;
+        /// <summary>
+        /// The number of samples in each batch.
+        /// </summary>
         public int BatchSize;
 
         /// <summary>

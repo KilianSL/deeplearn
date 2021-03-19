@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace NEA.Utils.Data
 {
+    /// <summary>
+    /// A class representing a dataset, as well as allowing basic data interactions.
+    /// </summary>
     public class DataSet
     {
         /// <summary>
@@ -52,12 +55,22 @@ namespace NEA.Utils.Data
         }
 
         // Indexers
+        /// <summary>
+        /// Specifies a value at the specified row and column index.
+        /// </summary>
+        /// <param name="row">The row index.</param>
+        /// <param name="column">The column index.</param>
+        /// <returns>The nullable float at the specified index.</returns>
         public float? this[int row, int column]
         {
             get => data[row][column];
             set => data[row][column] = value;
         }
-
+        /// <summary>
+        /// Specifies a row at the specified index.
+        /// </summary>
+        /// <param name="index">The row index.</param>
+        /// <returns>The array of nullable floats at the specified index.</returns>
         public float?[] this[int index]
         {
             get => data[index];

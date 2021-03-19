@@ -78,6 +78,11 @@
             Randomly initialises the weights for the layer. Biases are initialised to 0. 
             </summary>
         </member>
+        <member name="T:NEA.Tensor.Matrix">
+            <summary>
+            A class representing a matrix. Uses a single-precision Float32 data type. 
+            </summary>
+        </member>
         <member name="P:NEA.Tensor.Matrix.Shape">
             <summary>
             The dimensions of the matrix, rows x columns
@@ -104,9 +109,45 @@
             <summary>
             Creates a matrix of the specified dimensions populated with values drawn from a random Gaussian distribution.
             </summary>
+            <param name="rows">The number of rows in the matrix.</param>
+            <param name="columns">The number of columns in the matrix.</param>
             <param name="mean">The mean of the distribution. Default 0</param>
             <param name="stdDev">The standard deviation of the distribution. Default 1</param>
             <returns>A new matrix intialised with the specified parameters.</returns>
+        </member>
+        <member name="P:NEA.Tensor.Matrix.Item(System.Int32)">
+            <summary>
+            Gets a single value from the first column of the matrix. Only works with column matricies.
+            </summary>
+            <param name="idx">The row index of the required item.</param>
+            <returns>The float at [idx,0].</returns>
+        </member>
+        <member name="P:NEA.Tensor.Matrix.Item(System.Int32,System.Int32)">
+            <summary>
+            Specifies a single value at the desired row and column indices. Allows get and set operations. 
+            </summary>
+            <param name="row">The row index.</param>
+            <param name="col">The column index.</param>
+            <returns>The float at [row,col].</returns>
+        </member>
+        <member name="M:NEA.Tensor.Matrix.GetEnumerator">
+            <summary>
+            Gets an enumerable collection from this matrix.
+            </summary>
+            <returns>An IEnumerator representing the matrix.</returns>
+        </member>
+        <member name="M:NEA.Tensor.Matrix.Equals(System.Object)">
+            <summary>
+            Checks two objects are equal.
+            </summary>
+            <param name="obj">The object to compare this matrix to.</param>
+            <returns>A boolean equality value.</returns>
+        </member>
+        <member name="M:NEA.Tensor.Matrix.GetHashCode">
+            <summary>
+            Gets the hash value for this matrix.
+            </summary>
+            <returns>The hash value of this matrix.</returns>
         </member>
         <member name="M:NEA.Tensor.Matrix.Add(NEA.Tensor.Matrix)">
             <summary>
@@ -117,7 +158,6 @@
             <summary>
             Performs the Hadamard (elementwise) product between this matrix and matrix A.
             </summary>
-            <param name="A"></param>
         </member>
         <member name="M:NEA.Tensor.Matrix.Dot(NEA.Tensor.Matrix)">
             <summary>
@@ -145,6 +185,12 @@
             Returns a new float array storing the data from the matrix.
             </summary>
             <returns>A new float array storing the data from the matrix.</returns>
+        </member>
+        <member name="M:NEA.Tensor.Matrix.ToString">
+            <summary>
+            Generates a string representation of this matrix.
+            </summary>
+            <returns>A string representing this matrix.</returns>
         </member>
         <member name="M:NEA.Tensor.MatrixUtils.RandomGaussian(System.Single,System.Single)">
             <summary>
@@ -223,9 +269,39 @@
             <param name="input">The input tensor.</param>
             <param name="output">The corresponding output tensor.</param>
         </member>
+        <member name="F:NEA.Utils.Data.Batch.input">
+            <summary>
+            A tensor of input samples.
+            </summary>
+        </member>
+        <member name="F:NEA.Utils.Data.Batch.output">
+            <summary>
+            A tensor of output samples.
+            </summary>
+        </member>
         <member name="P:NEA.Utils.Data.Batch.BatchSize">
             <summary>
             The amount of items in this batch. 
+            </summary>
+        </member>
+        <member name="T:NEA.Utils.Data.DataLoader">
+            <summary>
+            Data loader. Combines a dataset and a sampler, and provides an iterable over the given dataset.
+            </summary>
+        </member>
+        <member name="F:NEA.Utils.Data.DataLoader.TrainSet">
+            <summary>
+            The set of training data.
+            </summary>
+        </member>
+        <member name="F:NEA.Utils.Data.DataLoader.TestSet">
+            <summary>
+            The set of test data.
+            </summary>
+        </member>
+        <member name="F:NEA.Utils.Data.DataLoader.BatchSize">
+            <summary>
+            The number of samples in each batch.
             </summary>
         </member>
         <member name="M:NEA.Utils.Data.DataLoader.#ctor(NEA.Utils.Data.DataSet,System.Int32,System.Int32[],System.Boolean,System.Int32,System.Boolean,System.Boolean,System.Single)">
@@ -241,6 +317,11 @@
             <param name="shuffle">Whether the dataset should be shuffled. Default true.</param>
             <param name="split">Whether the dataset should be split into train and test. Default true.</param>
             <param name="trainTestSplit">The proportion of the dataset that should be used as training data. Default 0.7.</param>
+        </member>
+        <member name="T:NEA.Utils.Data.DataSet">
+            <summary>
+            A class representing a dataset, as well as allowing basic data interactions.
+            </summary>
         </member>
         <member name="P:NEA.Utils.Data.DataSet.Count">
             <summary>
@@ -270,6 +351,21 @@
             Creates a dataset from a pre-populated nullable float array
             </summary>
             <param name="data">The data to populate the dataset with</param>
+        </member>
+        <member name="P:NEA.Utils.Data.DataSet.Item(System.Int32,System.Int32)">
+            <summary>
+            Specifies a value at the specified row and column index.
+            </summary>
+            <param name="row">The row index.</param>
+            <param name="column">The column index.</param>
+            <returns>The nullable float at the specified index.</returns>
+        </member>
+        <member name="P:NEA.Utils.Data.DataSet.Item(System.Int32)">
+            <summary>
+            Specifies a row at the specified index.
+            </summary>
+            <param name="index">The row index.</param>
+            <returns>The array of nullable floats at the specified index.</returns>
         </member>
         <member name="M:NEA.Utils.Data.DataSet.LoadData(System.String,System.Boolean,System.Char)">
             <summary>
