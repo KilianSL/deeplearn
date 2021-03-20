@@ -58,7 +58,7 @@ namespace NEA.Utils.Data
         private Batch[] batch(DataSet dataset, int batchSize, int[] targetVariable, bool oneHotTarget, int nClasses)
         {
             // Location function to turn a 1d array into a matrix-compatible 2d array
-            float[,] arr1dTo2d(float[] arr)
+            static float[,] arr1dTo2d(float[] arr)
             {
                 float[,] res = new float[arr.Length, 1];
                 for (int i = 0; i < arr.Length; i++)

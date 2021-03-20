@@ -9,7 +9,9 @@ namespace NEA.Tensor
     /// </summary>
     public class Tensor
     {
+#pragma warning disable IDE0044 // Add readonly modifier
         private Matrix[] data; // The data stored in the tensor
+#pragma warning restore IDE0044 // Add readonly modifier
         /// <summary>
         /// The shape of the tensor in order [batches, matrix_rows, matrix_columns]
         /// </summary>
