@@ -4,11 +4,23 @@ using System.Text;
 
 namespace NEA.Tensor
 {
+    /// <summary>
+    /// A class representing a batch of matricies.
+    /// </summary>
     public class Tensor
     {
         private Matrix[] data; // The data stored in the tensor
-        public int[] Shape { get; private set; } // The shape of the tensor in order [batch, matrix_rows, matrix_columns]
+        /// <summary>
+        /// The shape of the tensor in order [batches, matrix_rows, matrix_columns]
+        /// </summary>
+        public int[] Shape { get; private set; }
 
+        /// <summary>
+        /// Initialises an empty tensor with the specified number of rows, columns and batches. 
+        /// </summary>
+        /// <param name="batches">The number of batches.</param>
+        /// <param name="rows">The number of rows.</param>
+        /// <param name="columns">The number of columns.</param>
         public Tensor(int batches, int rows, int columns)
         {
             var data = new Matrix[batches];
@@ -20,11 +32,11 @@ namespace NEA.Tensor
             this.Shape = new int[] { batches, rows, columns };
         }
 
-        // Indexing methods for the Tensor, implemented as per the documentation
+        // Indexers
         /// <summary>
         /// Gets the batch at the specified index.
         /// </summary>
-        /// <param name="idx">The index in the tensor.</param>
+        /// <param name="idx">The index of the batch.</param>
         /// <returns>A matrix representing the batch.</returns>
         public Matrix this[int idx]
         {
@@ -38,32 +50,13 @@ namespace NEA.Tensor
             }
         }
 
-        public float this[int row, int col]
-        {
-            get
-            {
-                if (Shape[0] == 1)
-                {
-                    return data[0][row, col]; // will handle error in the case where the matrix is not an Nx1 vector
-                }
-                else
-                {
-                    throw new Exception("Unsuitable Tensor Indexing");
-                }
-            }
-            set
-            {
-                if (Shape[0] == 1)
-                {
-                    data[0][row, col] = value;
-                }
-                else
-                {
-                    throw new Exception("Unsuitable Tensor Indexing");
-                }
-            }
-        }
-
+        /// <summary>
+        /// Gets the float at the specified index.
+        /// </summary>
+        /// <param name="batch">The batch index.</param>
+        /// <param name="row">The row index.</param>
+        /// <param name="col">The column index.</param>
+        /// <returns>The float value at the specified index.</returns>
         public float this[int batch, int row, int col]
         {
             get
@@ -76,18 +69,33 @@ namespace NEA.Tensor
             }
         }
 
-        // Gets a specific item from the batched tensor
+        /// <summary>
+        /// Gets the batch at the specified index.
+        /// </summary>
+        /// <param name="idx">The index in the tensor.</param>
+        /// <returns>A matrix representing the batch.</returns>
+        /// <remarks>Deprecated code, will soon be removed.</remarks>
         public Matrix GetItem(int idx)
         {
             return data[idx];
         }
 
         // Sets a specific batch to an instance of a matrix
+        /// <summary>
+        /// Sets the batch at the specified index.
+        /// </summary>
+        /// <param name="idx">The index of the batch.</param>
+        /// <param name="m">The matrix to set.</param>
+        /// <remarks>Deprecated code, will soon be removed.</remarks>
         public void SetItem(int idx, Matrix m)
         {
             data[idx] = m;
         }
 
+        /// <summary>
+        /// Gets the hash value for this tensor.
+        /// </summary>
+        /// <returns>The hash value of this tensor.</returns>
         public override int GetHashCode()
         {
             string tensorIdentifier = "";
@@ -114,6 +122,11 @@ namespace NEA.Tensor
             return hashCode;
         }
 
+        /// <summary>
+        /// Checks two objects are equal.
+        /// </summary>
+        /// <param name="obj">The object to compare this tensor to.</param>
+        /// <returns>A boolean equality value.</returns>
         public override bool Equals(object obj)
         {
             if (obj is Tensor)
@@ -127,6 +140,10 @@ namespace NEA.Tensor
         }
 
         // Concatenates the string representations of all the matricies in the tensor, separated by line breaks and comma
+        /// <summary>
+        /// Generates a string representation of this tensor.
+        /// </summary>
+        /// <returns>A string representing this tensor.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder("[");

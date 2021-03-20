@@ -11,13 +11,15 @@ namespace NEA.Tensor
     {
         private float[,] data;
         /// <summary>
-        /// The dimensions of the matrix, rows x columns
+        /// The dimensions of the matrix, in order [rows,columns].
         /// </summary>
         public int[] Shape { get; private set; } // Shape can only be set internally, but the field is publically accessible
 
         /// <summary>
         /// Initialises an empty matrix with the specified number of rows and columns.
         /// </summary>
+        /// /// <param name="rows">The number of rows.</param>
+        /// <param name="columns">The number of columns.</param>
         public Matrix(int rows, int columns)
         {
             this.data = new float[rows, columns];
