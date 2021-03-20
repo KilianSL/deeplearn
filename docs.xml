@@ -4,6 +4,74 @@
         <name>NEA</name>
     </assembly>
     <members>
+        <member name="T:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions">
+            <summary>
+            Provides static functional implementations of neural network activation functions. 
+            </summary>
+        </member>
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Sigmoid(NEA.Tensor.Tensor)">
+            <summary>
+            Applies the element-wise sigmoid function.
+            </summary>
+            <param name="x">The input tensor.</param>
+            <returns>The input tensor, with the sigmoid function applied to each value.</returns>
+            
+        </member>
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Sigmoid(NEA.Tensor.Matrix)">
+            <summary>
+            Applies the element-wise sigmoid function.
+            </summary>
+            <param name="x">The input matrix.</param>
+            <returns>The input matrix, with the sigmoid function applied to each value.</returns>
+            
+        </member>
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.ReLU(NEA.Tensor.Tensor)">
+            <summary>
+            Applies the element-wise rectified linear unit function.
+            </summary>
+            <param name="x">The input tensor.</param>
+            <returns>The input tensor, with the rectified linear unit function applied to each value.</returns>
+            
+        </member>
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.ReLU(NEA.Tensor.Matrix)">
+            <summary>
+            Applies the element-wise rectified linear unit function.
+            </summary>
+            <param name="x">The input matrix.</param>
+            <returns>The input matrix, with the rectified linear unit function applied to each value.</returns>
+            
+        </member>
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Tanh(NEA.Tensor.Tensor)">
+            <summary>
+            Applies the element-wise hyperbolic tangent function.
+            </summary>
+            <param name="x">The input tensor.</param>
+            <returns>The input tensor, with the hyperbolic tangent function applied to each value.</returns>
+            
+        </member>
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Tanh(NEA.Tensor.Matrix)">
+            <summary>
+            Applies the element-wise hyperbolic tangent function.
+            </summary>
+            <param name="x">The input matrix.</param>
+            <returns>The input matrix, with the hyperbolic tangent function applied to each value.</returns>
+            
+        </member>
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Softmax(NEA.Tensor.Tensor)">
+            <summary>
+            Applies the Softmax function to each batch of an n-dimensional input tensor rescaling them so that the elements of the n-dimensional output tensor lie in the range [0,1] and sum to 1.
+            </summary>
+            <param name="x">The input tensor.</param>
+            <returns>The input tensor, with the softmax function applied to each batch.</returns>
+            
+        </member>
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Softmax(NEA.Tensor.Matrix)">
+            <summary>
+            Applies the Softmax function to an input matrix, rescaling each element so that the elements of the matrix lie in the range [0,1] and sum to 1.
+            </summary>
+            <param name="x">The input matrix.</param>
+            <returns>The input matrix, with the softmax function applied.</returns>
+        </member>
         <member name="T:NEA.NeuralNetwork.Layers.Dropout">
             <summary>
             During training, randomly zeroes some of the elements of the input tensor with probability p using samples from a uniform distribution.
@@ -85,13 +153,15 @@
         </member>
         <member name="P:NEA.Tensor.Matrix.Shape">
             <summary>
-            The dimensions of the matrix, rows x columns
+            The dimensions of the matrix, in order [rows,columns].
             </summary>
         </member>
         <member name="M:NEA.Tensor.Matrix.#ctor(System.Int32,System.Int32)">
             <summary>
             Initialises an empty matrix with the specified number of rows and columns.
             </summary>
+            /// <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
         </member>
         <member name="M:NEA.Tensor.Matrix.#ctor(System.Single[0:,0:])">
             <summary>
@@ -200,6 +270,75 @@
             <param name="stdDev">The standard deviation of the distribution.</param>
             <returns>An array of 2 random variables drawn from the distribution.</returns>
         </member>
+        <member name="T:NEA.Tensor.Tensor">
+            <summary>
+            A class representing a batch of matricies.
+            </summary>
+        </member>
+        <member name="P:NEA.Tensor.Tensor.Shape">
+            <summary>
+            The shape of the tensor in order [batches, matrix_rows, matrix_columns]
+            </summary>
+        </member>
+        <member name="M:NEA.Tensor.Tensor.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initialises an empty tensor with the specified number of rows, columns and batches. 
+            </summary>
+            <param name="batches">The number of batches.</param>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+        </member>
+        <member name="P:NEA.Tensor.Tensor.Item(System.Int32)">
+            <summary>
+            Gets the batch at the specified index.
+            </summary>
+            <param name="idx">The index of the batch.</param>
+            <returns>A matrix representing the batch.</returns>
+        </member>
+        <member name="P:NEA.Tensor.Tensor.Item(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Gets the float at the specified index.
+            </summary>
+            <param name="batch">The batch index.</param>
+            <param name="row">The row index.</param>
+            <param name="col">The column index.</param>
+            <returns>The float value at the specified index.</returns>
+        </member>
+        <member name="M:NEA.Tensor.Tensor.GetItem(System.Int32)">
+            <summary>
+            Gets the batch at the specified index.
+            </summary>
+            <param name="idx">The index in the tensor.</param>
+            <returns>A matrix representing the batch.</returns>
+            <remarks>Deprecated code, will soon be removed.</remarks>
+        </member>
+        <member name="M:NEA.Tensor.Tensor.SetItem(System.Int32,NEA.Tensor.Matrix)">
+            <summary>
+            Sets the batch at the specified index.
+            </summary>
+            <param name="idx">The index of the batch.</param>
+            <param name="m">The matrix to set.</param>
+            <remarks>Deprecated code, will soon be removed.</remarks>
+        </member>
+        <member name="M:NEA.Tensor.Tensor.GetHashCode">
+            <summary>
+            Gets the hash value for this tensor.
+            </summary>
+            <returns>The hash value of this tensor.</returns>
+        </member>
+        <member name="M:NEA.Tensor.Tensor.Equals(System.Object)">
+            <summary>
+            Checks two objects are equal.
+            </summary>
+            <param name="obj">The object to compare this tensor to.</param>
+            <returns>A boolean equality value.</returns>
+        </member>
+        <member name="M:NEA.Tensor.Tensor.ToString">
+            <summary>
+            Generates a string representation of this tensor.
+            </summary>
+            <returns>A string representing this tensor.</returns>
+        </member>
         <member name="M:NEA.Tensor.Tensor.Add(NEA.Tensor.Tensor)">
             <summary>
             Adds Tensor A to this Tensor.
@@ -222,13 +361,13 @@
         </member>
         <member name="M:NEA.Tensor.Tensor.Dot(NEA.Tensor.Tensor)">
             <summary>
-            Calculates the dot product between the matricies contained in two tensors. 
+            Calculates the dot product between the matricies contained in two tensors.
             </summary>
             <returns>An array of matrix dot products</returns>
         </member>
         <member name="M:NEA.Tensor.Tensor.Dot(NEA.Tensor.Matrix)">
             <summary>
-            Calculates the dot product between the matricies contained in this tensor and matrix A. 
+            Calculates the dot product between the matricies contained in this tensor and matrix A.
             </summary>
             <returns>An array of matrix dot products.</returns>
         </member>
@@ -254,7 +393,7 @@
         </member>
         <member name="M:NEA.Tensor.Tensor.ToArray">
             <summary>
-            Returns the tensor as an array of 2d float arrays. 
+            Returns the tensor as an array of 2d float arrays.
             </summary>
         </member>
         <member name="T:NEA.Utils.Data.Batch">

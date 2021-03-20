@@ -1,6 +1,7 @@
 ﻿namespace NEA.Utils.Data
 {
     using Tensor;
+
     /// <summary>
     /// Stores the input and output tensors for a single batch of data.
     /// </summary>
@@ -16,16 +17,19 @@
             this.input = input;
             this.output = output;
         }
+
         /// <summary>
         /// A tensor of input samples.
         /// </summary>
         public Tensor input;
+
         /// <summary>
         /// A tensor of output samples.
         /// </summary>
         public Tensor output;
+
         /// <summary>
-        /// The amount of items in this batch. 
+        /// The amount of items in this batch.
         /// </summary>
         public int BatchSize { get => input.Shape[0]; }
     }

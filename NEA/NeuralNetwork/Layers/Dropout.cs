@@ -7,7 +7,7 @@ namespace NEA.NeuralNetwork.Layers
     /// <summary>
     /// During training, randomly zeroes some of the elements of the input tensor with probability p using samples from a uniform distribution.
     /// </summary>
-    class Dropout : Layer
+    public class Dropout : Layer
     {
         private readonly float p; // The p value for the dropout function
 

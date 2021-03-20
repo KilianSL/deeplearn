@@ -5,11 +5,12 @@ using System.Text;
 namespace NEA.Tensor
 {
     /// <summary>
-    /// A class representing a matrix. Uses a single-precision Float32 data type. 
+    /// A class representing a matrix. Uses a single-precision Float32 data type.
     /// </summary>
     public class Matrix : IEnumerable
     {
         private float[,] data;
+
         /// <summary>
         /// The dimensions of the matrix, in order [rows,columns].
         /// </summary>
@@ -102,7 +103,7 @@ namespace NEA.Tensor
         }
 
         /// <summary>
-        /// Specifies a single value at the desired row and column indices. Allows get and set operations. 
+        /// Specifies a single value at the desired row and column indices. Allows get and set operations.
         /// </summary>
         /// <param name="row">The row index.</param>
         /// <param name="col">The column index.</param>
@@ -142,7 +143,7 @@ namespace NEA.Tensor
         /// <returns>A boolean equality value.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is Matrix  )
+            if (obj is Matrix)
             {
                 return this.ToString() == obj.ToString();
             }
@@ -174,11 +175,10 @@ namespace NEA.Tensor
             for (int i = 3; i >= 0; i--)
             {
                 hashCode += hashBytes[3 - i];
-                hashCode <<= 8 * i; 
+                hashCode <<= 8 * i;
             }
-            
+
             return hashCode;
-            
         }
 
         // Check matrix shape is equal to this matrix, throws error on false (DRY principal for all functions where matrix dimensions need to be equal)
@@ -278,10 +278,10 @@ namespace NEA.Tensor
         // Flatten and reshape method - reshapes matrix values to the specified shape
         // Uses for loops to "flatten" the matrix, then reads to the appropriate row and column of the target matrix
         /// <summary>
-        /// Reshapes the matrix to fit the specified dimensions. 
+        /// Reshapes the matrix to fit the specified dimensions.
         /// </summary>
         public void Reshape(int rows, int cols)
-        { 
+        {
             if (Shape[0] * Shape[1] != rows * cols)
             {
                 throw new Exception("Matrix does not fit reshape dimensions");

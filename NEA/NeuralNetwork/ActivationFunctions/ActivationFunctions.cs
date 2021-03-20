@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Linq;
+
 namespace NEA.NeuralNetwork.ActivationFunctions
 {
     using Tensor;
+
     /// <summary>
-    /// Provides static functional implementations of neural network activation functions. 
+    /// Provides static functional implementations of neural network activation functions.
     /// </summary>
-    static class ActivationFunctions
+    public static class ActivationFunctions
     {
         /// <summary>
         /// Applies the element-wise sigmoid function.
         /// </summary>
         /// <param name="x">The input tensor.</param>
         /// <returns>The input tensor, with the sigmoid function applied to each value.</returns>
-        /// 
+        ///
         public static Tensor Sigmoid(Tensor x)
         {
             for (int i = 0; i < x.Shape[0]; i++)
@@ -22,29 +24,31 @@ namespace NEA.NeuralNetwork.ActivationFunctions
             }
             return x;
         }
+
         /// <summary>
         /// Applies the element-wise sigmoid function.
         /// </summary>
         /// <param name="x">The input matrix.</param>
         /// <returns>The input matrix, with the sigmoid function applied to each value.</returns>
-        /// 
+        ///
         public static Matrix Sigmoid(Matrix x)
         {
             for (int i = 0; i < x.Shape[0]; i++)
             {
                 for (int j = 0; j < x.Shape[1]; j++)
                 {
-                    x[i, j] = 1 / (1 + MathF.Exp(-x[i,j]));
+                    x[i, j] = 1 / (1 + MathF.Exp(-x[i, j]));
                 }
             }
             return x;
         }
+
         /// <summary>
         /// Applies the element-wise rectified linear unit function.
         /// </summary>
         /// <param name="x">The input tensor.</param>
         /// <returns>The input tensor, with the rectified linear unit function applied to each value.</returns>
-        /// 
+        ///
         public static Tensor ReLU(Tensor x)
         {
             for (int i = 0; i < x.Shape[0]; i++)
@@ -53,12 +57,13 @@ namespace NEA.NeuralNetwork.ActivationFunctions
             }
             return x;
         }
+
         /// <summary>
         /// Applies the element-wise rectified linear unit function.
         /// </summary>
         /// <param name="x">The input matrix.</param>
         /// <returns>The input matrix, with the rectified linear unit function applied to each value.</returns>
-        /// 
+        ///
         public static Matrix ReLU(Matrix x)
         {
             for (int i = 0; i < x.Shape[0]; i++)
@@ -70,12 +75,13 @@ namespace NEA.NeuralNetwork.ActivationFunctions
             }
             return x;
         }
+
         /// <summary>
         /// Applies the element-wise hyperbolic tangent function.
         /// </summary>
         /// <param name="x">The input tensor.</param>
         /// <returns>The input tensor, with the hyperbolic tangent function applied to each value.</returns>
-        /// 
+        ///
         public static Tensor Tanh(Tensor x)
         {
             for (int i = 0; i < x.Shape[0]; i++)
@@ -84,12 +90,13 @@ namespace NEA.NeuralNetwork.ActivationFunctions
             }
             return x;
         }
+
         /// <summary>
         /// Applies the element-wise hyperbolic tangent function.
         /// </summary>
         /// <param name="x">The input matrix.</param>
         /// <returns>The input matrix, with the hyperbolic tangent function applied to each value.</returns>
-        /// 
+        ///
         public static Matrix Tanh(Matrix x)
         {
             for (int i = 0; i < x.Shape[0]; i++)
@@ -101,12 +108,13 @@ namespace NEA.NeuralNetwork.ActivationFunctions
             }
             return x;
         }
+
         /// <summary>
         /// Applies the Softmax function to each batch of an n-dimensional input tensor rescaling them so that the elements of the n-dimensional output tensor lie in the range [0,1] and sum to 1.
         /// </summary>
         /// <param name="x">The input tensor.</param>
         /// <returns>The input tensor, with the softmax function applied to each batch.</returns>
-        /// 
+        ///
         public static Tensor Softmax(Tensor x)
         {
             for (int i = 0; i < x.Shape[0]; i++)
@@ -115,6 +123,7 @@ namespace NEA.NeuralNetwork.ActivationFunctions
             }
             return x;
         }
+
         /// <summary>
         /// Applies the Softmax function to an input matrix, rescaling each element so that the elements of the matrix lie in the range [0,1] and sum to 1.
         /// </summary>
@@ -133,6 +142,5 @@ namespace NEA.NeuralNetwork.ActivationFunctions
             }
             return x;
         }
-
     }
 }

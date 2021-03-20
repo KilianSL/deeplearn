@@ -12,10 +12,12 @@ namespace NEA.Utils.Data
         /// The set of training data.
         /// </summary>
         public Batch[] TrainSet;
+
         /// <summary>
         /// The set of test data.
         /// </summary>
         public Batch[] TestSet;
+
         /// <summary>
         /// The number of samples in each batch.
         /// </summary>
@@ -38,7 +40,6 @@ namespace NEA.Utils.Data
             dataset.Clean();
             if (shuffle)
             {
-
                 dataset.Shuffle();
             }
             if (split)
@@ -103,7 +104,6 @@ namespace NEA.Utils.Data
                 var outputs = new Tensor.Tensor(batchSize, outputList[0].Length, 1);
                 for (int i = 0; i < batchSize; i++)
                 {
-                    
                     inputs.SetItem(i, new Tensor.Matrix(arr1dTo2d(inputList[batchidx * batchSize + i])));
                     outputs.SetItem(i, new Tensor.Matrix(arr1dTo2d(outputList[batchidx * batchSize + i])));
                 }

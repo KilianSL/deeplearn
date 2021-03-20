@@ -10,11 +10,11 @@ namespace NEA.Tensor
         /// <param name="mean">The mean of the distribution.</param>
         /// <param name="stdDev">The standard deviation of the distribution.</param>
         /// <returns>An array of 2 random variables drawn from the distribution.</returns>
-        public static float[] RandomGaussian(float mean, float stdDev) 
+        public static float[] RandomGaussian(float mean, float stdDev)
         {
             Random random = new Random();
             // gets a random float value from U(0,1)
-            float randomFloat() { return (float)random.NextDouble(); } 
+            float randomFloat() { return (float)random.NextDouble(); }
             float s = 5;
             float u1 = 1;
             float u2 = 1;

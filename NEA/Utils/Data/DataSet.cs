@@ -13,7 +13,8 @@ namespace NEA.Utils.Data
         /// <summary>
         /// The number of entries in the dataset
         /// </summary>
-        public int Count { get {return data.Length; } private set { } }
+        public int Count { get { return data.Length; } private set { } }
+
         /// <summary>
         /// The number of features in the dataset
         /// </summary>
@@ -66,6 +67,7 @@ namespace NEA.Utils.Data
             get => data[row][column];
             set => data[row][column] = value;
         }
+
         /// <summary>
         /// Specifies a row at the specified index.
         /// </summary>
@@ -240,7 +242,7 @@ namespace NEA.Utils.Data
         }
 
         /// <summary>
-        /// Returns the contents of the dataset as a nullable float array. 
+        /// Returns the contents of the dataset as a nullable float array.
         /// </summary>
         /// <returns></returns>
         public float?[][] ToArray()

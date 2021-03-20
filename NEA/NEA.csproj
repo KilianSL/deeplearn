@@ -11,8 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NeuralNetwork\Optimisers\**" />
+    <EmbeddedResource Remove="NeuralNetwork\Optimisers\**" />
+    <None Remove="NeuralNetwork\Optimisers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="NeuralNetwork\LossFunctions\" />
-    <Folder Include="NeuralNetwork\Optimisers\" />
   </ItemGroup>
 
   <ItemGroup>

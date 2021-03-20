@@ -1,10 +1,11 @@
 ﻿namespace NEA.NeuralNetwork.Layers
 {
     using Tensor;
+
     /// <summary>
     /// A placeholder identity operator.
     /// </summary>
-    class Identity:Layer
+    public class Identity : Layer
     {
         /// <summary>
         /// Creates a new identity layer.
@@ -15,11 +16,12 @@
             this.InputSize = InputSize;
             this.OutputSize = InputSize;
         }
-       /// <summary>
-       /// A placeholder identity operator.
-       /// </summary>
-       /// <param name="x">The input sample.</param>
-       /// <returns>The input sample.</returns>
+
+        /// <summary>
+        /// A placeholder identity operator.
+        /// </summary>
+        /// <param name="x">The input sample.</param>
+        /// <returns>The input sample.</returns>
         public override Tensor Forward(Tensor x)
         {
             return x;

@@ -12,13 +12,14 @@ namespace NEA.Tensor
 #pragma warning disable IDE0044 // Add readonly modifier
         private Matrix[] data; // The data stored in the tensor
 #pragma warning restore IDE0044 // Add readonly modifier
+
         /// <summary>
         /// The shape of the tensor in order [batches, matrix_rows, matrix_columns]
         /// </summary>
         public int[] Shape { get; private set; }
 
         /// <summary>
-        /// Initialises an empty tensor with the specified number of rows, columns and batches. 
+        /// Initialises an empty tensor with the specified number of rows, columns and batches.
         /// </summary>
         /// <param name="batches">The number of batches.</param>
         /// <param name="rows">The number of rows.</param>
