@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NeuralNetwork\LossFunctions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="docfx.console" Version="2.56.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

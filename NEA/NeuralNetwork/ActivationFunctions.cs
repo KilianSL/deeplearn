@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace NEA.NeuralNetwork.ActivationFunctions
+namespace NEA.NeuralNetwork
 {
     using Tensor;
 
