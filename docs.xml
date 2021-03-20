@@ -6,63 +6,63 @@
     <members>
         <member name="T:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions">
             <summary>
-            Provides static functional implementations of neural network activation functions. 
+            Provides static functional implementations of neural network activation functions.
             </summary>
         </member>
         <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Sigmoid(NEA.Tensor.Tensor)">
-            <summary>
-            Applies the element-wise sigmoid function.
-            </summary>
-            <param name="x">The input tensor.</param>
-            <returns>The input tensor, with the sigmoid function applied to each value.</returns>
+             <summary>
+             Applies the element-wise sigmoid function.
+             </summary>
+             <param name="x">The input tensor.</param>
+             <returns>The input tensor, with the sigmoid function applied to each value.</returns>
             
         </member>
         <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Sigmoid(NEA.Tensor.Matrix)">
-            <summary>
-            Applies the element-wise sigmoid function.
-            </summary>
-            <param name="x">The input matrix.</param>
-            <returns>The input matrix, with the sigmoid function applied to each value.</returns>
+             <summary>
+             Applies the element-wise sigmoid function.
+             </summary>
+             <param name="x">The input matrix.</param>
+             <returns>The input matrix, with the sigmoid function applied to each value.</returns>
             
         </member>
         <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.ReLU(NEA.Tensor.Tensor)">
-            <summary>
-            Applies the element-wise rectified linear unit function.
-            </summary>
-            <param name="x">The input tensor.</param>
-            <returns>The input tensor, with the rectified linear unit function applied to each value.</returns>
+             <summary>
+             Applies the element-wise rectified linear unit function.
+             </summary>
+             <param name="x">The input tensor.</param>
+             <returns>The input tensor, with the rectified linear unit function applied to each value.</returns>
             
         </member>
         <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.ReLU(NEA.Tensor.Matrix)">
-            <summary>
-            Applies the element-wise rectified linear unit function.
-            </summary>
-            <param name="x">The input matrix.</param>
-            <returns>The input matrix, with the rectified linear unit function applied to each value.</returns>
+             <summary>
+             Applies the element-wise rectified linear unit function.
+             </summary>
+             <param name="x">The input matrix.</param>
+             <returns>The input matrix, with the rectified linear unit function applied to each value.</returns>
             
         </member>
         <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Tanh(NEA.Tensor.Tensor)">
-            <summary>
-            Applies the element-wise hyperbolic tangent function.
-            </summary>
-            <param name="x">The input tensor.</param>
-            <returns>The input tensor, with the hyperbolic tangent function applied to each value.</returns>
+             <summary>
+             Applies the element-wise hyperbolic tangent function.
+             </summary>
+             <param name="x">The input tensor.</param>
+             <returns>The input tensor, with the hyperbolic tangent function applied to each value.</returns>
             
         </member>
         <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Tanh(NEA.Tensor.Matrix)">
-            <summary>
-            Applies the element-wise hyperbolic tangent function.
-            </summary>
-            <param name="x">The input matrix.</param>
-            <returns>The input matrix, with the hyperbolic tangent function applied to each value.</returns>
+             <summary>
+             Applies the element-wise hyperbolic tangent function.
+             </summary>
+             <param name="x">The input matrix.</param>
+             <returns>The input matrix, with the hyperbolic tangent function applied to each value.</returns>
             
         </member>
         <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Softmax(NEA.Tensor.Tensor)">
-            <summary>
-            Applies the Softmax function to each batch of an n-dimensional input tensor rescaling them so that the elements of the n-dimensional output tensor lie in the range [0,1] and sum to 1.
-            </summary>
-            <param name="x">The input tensor.</param>
-            <returns>The input tensor, with the softmax function applied to each batch.</returns>
+             <summary>
+             Applies the Softmax function to each batch of an n-dimensional input tensor rescaling them so that the elements of the n-dimensional output tensor lie in the range [0,1] and sum to 1.
+             </summary>
+             <param name="x">The input tensor.</param>
+             <returns>The input tensor, with the softmax function applied to each batch.</returns>
             
         </member>
         <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Softmax(NEA.Tensor.Matrix)">
@@ -71,6 +71,18 @@
             </summary>
             <param name="x">The input matrix.</param>
             <returns>The input matrix, with the softmax function applied.</returns>
+        </member>
+        <member name="T:NEA.NeuralNetwork.IModule">
+            <summary>
+            Interface implemented by all neural network modules.
+            </summary>
+        </member>
+        <member name="M:NEA.NeuralNetwork.IModule.Forward(NEA.Tensor.Tensor)">
+            <summary>
+            The function to be called on a forward pass.
+            </summary>
+            <param name="input">The input sample.</param>
+            <returns>The result of the forward pass on the input sample.</returns>
         </member>
         <member name="T:NEA.NeuralNetwork.Layers.Dropout">
             <summary>
@@ -124,7 +136,7 @@
         </member>
         <member name="T:NEA.NeuralNetwork.Layers.Linear">
             <summary>
-            Applies a linear transformation to the incoming data. 
+            Applies a linear transformation to the incoming data.
             </summary>
         </member>
         <member name="M:NEA.NeuralNetwork.Layers.Linear.#ctor(System.Int32,System.Int32)">
@@ -136,19 +148,19 @@
         </member>
         <member name="M:NEA.NeuralNetwork.Layers.Linear.Forward(NEA.Tensor.Tensor)">
             <summary>
-            Applies a linear transformation to the incoming data. 
+            Applies a linear transformation to the incoming data.
             </summary>
             <param name="x">The input data.</param>
             <returns>The transformed input data.</returns>
         </member>
         <member name="M:NEA.NeuralNetwork.Layers.Linear.ResetParameters">
             <summary>
-            Randomly initialises the weights for the layer. Biases are initialised to 0. 
+            Randomly initialises the weights for the layer. Biases are initialised to 0.
             </summary>
         </member>
         <member name="T:NEA.Tensor.Matrix">
             <summary>
-            A class representing a matrix. Uses a single-precision Float32 data type. 
+            A class representing a matrix. Uses a single-precision Float32 data type.
             </summary>
         </member>
         <member name="P:NEA.Tensor.Matrix.Shape">
@@ -194,7 +206,7 @@
         </member>
         <member name="P:NEA.Tensor.Matrix.Item(System.Int32,System.Int32)">
             <summary>
-            Specifies a single value at the desired row and column indices. Allows get and set operations. 
+            Specifies a single value at the desired row and column indices. Allows get and set operations.
             </summary>
             <param name="row">The row index.</param>
             <param name="col">The column index.</param>
@@ -242,7 +254,7 @@
         </member>
         <member name="M:NEA.Tensor.Matrix.Reshape(System.Int32,System.Int32)">
             <summary>
-            Reshapes the matrix to fit the specified dimensions. 
+            Reshapes the matrix to fit the specified dimensions.
             </summary>
         </member>
         <member name="M:NEA.Tensor.Matrix.Transpose">
@@ -282,7 +294,7 @@
         </member>
         <member name="M:NEA.Tensor.Tensor.#ctor(System.Int32,System.Int32,System.Int32)">
             <summary>
-            Initialises an empty tensor with the specified number of rows, columns and batches. 
+            Initialises an empty tensor with the specified number of rows, columns and batches.
             </summary>
             <param name="batches">The number of batches.</param>
             <param name="rows">The number of rows.</param>
@@ -420,7 +432,7 @@
         </member>
         <member name="P:NEA.Utils.Data.Batch.BatchSize">
             <summary>
-            The amount of items in this batch. 
+            The amount of items in this batch.
             </summary>
         </member>
         <member name="T:NEA.Utils.Data.DataLoader">
@@ -552,7 +564,7 @@
         </member>
         <member name="M:NEA.Utils.Data.DataSet.ToArray">
             <summary>
-            Returns the contents of the dataset as a nullable float array. 
+            Returns the contents of the dataset as a nullable float array.
             </summary>
             <returns></returns>
         </member>
