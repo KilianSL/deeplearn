@@ -1,4 +1,5 @@
-﻿namespace NEA.NeuralNetwork.ActivationFunctions
+﻿using System;
+namespace NEA.NeuralNetwork.ActivationFunctions
 {
     using Tensor;
     /// <summary>
@@ -40,14 +41,30 @@
         /// <param name="x">The input tensor.</param>
         /// <returns>The input tensor, with the hyperbolic tangent function applied to each value.</returns>
         /// 
-        public static Tensor Tanh(Tensor x) { }
+        public static Tensor Tanh(Tensor x)
+        {
+            for (int i = 0; i < x.Shape[0]; i++)
+            {
+                x[i] = Tanh(x.GetItem(i));
+            }
+        }
         /// <summary>
         /// Applies the element-wise hyperbolic tangent function.
         /// </summary>
         /// <param name="x">The input matrix.</param>
         /// <returns>The input matrix, with the hyperbolic tangent function applied to each value.</returns>
         /// 
-        public static Matrix Tanh(Matrix x) { }
+        public static Matrix Tanh(Matrix x)
+        {
+            for (int i = 0; i < x.Shape[0]; i++)
+            {
+                for (int j = 0; j < x.Shape[1]; j++)
+                {
+                    x[i, j] = MathF.Tanh(x[i, j]);
+                }
+            }
+            return x;
+        }
         /// <summary>
         /// Applies the Softmax function to each batch of an n-dimensional input tensor rescaling them so that the elements of the n-dimensional output tensor lie in the range [0,1] and sum to 1.
         /// </summary>

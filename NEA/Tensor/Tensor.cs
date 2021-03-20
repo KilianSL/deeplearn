@@ -5,7 +5,7 @@ using System.Text;
 namespace NEA.Tensor
 {
     public class Tensor
-    { 
+    {
         private Matrix[] data; // The data stored in the tensor
         public int[] Shape { get; private set; } // The shape of the tensor in order [batch, matrix_rows, matrix_columns]
 
@@ -20,31 +20,21 @@ namespace NEA.Tensor
             this.Shape = new int[] { batches, rows, columns };
         }
 
-
         // Indexing methods for the Tensor, implemented as per the documentation
-        public float this[int idx]
+        /// <summary>
+        /// Gets the batch at the specified index.
+        /// </summary>
+        /// <param name="idx">The index in the tensor.</param>
+        /// <returns>A matrix representing the batch.</returns>
+        public Matrix this[int idx]
         {
             get
             {
-                if (Shape[0] == 1)
-                {
-                    return data[0][idx]; // will handle error in the case where the matrix is not an Nx1 vector
-                }
-                else
-                {
-                    throw new Exception("Unsuitable Tensor Indexing");
-                }
+                return data[idx];
             }
             set
             {
-                if (Shape[0] == 1)
-                {
-                    data[0][idx] = value; // will handle error in the case where the matrix is not an Nx1 vector
-                }
-                else
-                {
-                    throw new Exception("Unsuitable Tensor Indexing");
-                }
+                data[idx] = value; // will handle error in the case where the matrix is not an Nx1 vector
             }
         }
 
@@ -65,7 +55,7 @@ namespace NEA.Tensor
             {
                 if (Shape[0] == 1)
                 {
-                    data[0][row, col] = value; 
+                    data[0][row, col] = value;
                 }
                 else
                 {
@@ -78,19 +68,20 @@ namespace NEA.Tensor
         {
             get
             {
-                return data[batch][row, col]; 
+                return data[batch][row, col];
             }
             set
-              {
+            {
                 data[batch][row, col] = value;
             }
         }
 
-        // Gets a specific item from the batched tensor 
+        // Gets a specific item from the batched tensor
         public Matrix GetItem(int idx)
         {
             return data[idx];
         }
+
         // Sets a specific batch to an instance of a matrix
         public void SetItem(int idx, Matrix m)
         {
@@ -135,7 +126,7 @@ namespace NEA.Tensor
             }
         }
 
-        // Concatenates the string representations of all the matricies in the tensor, separated by line breaks and comma 
+        // Concatenates the string representations of all the matricies in the tensor, separated by line breaks and comma
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder("[");
@@ -150,7 +141,7 @@ namespace NEA.Tensor
 
         // Tensorised Linear Algebra methods
 
-        // Checks that two tensors are of equal dimensions. 
+        // Checks that two tensors are of equal dimensions.
         // This method is only called in situations where mismatched tensors would cause a fatal error, hence it throws an exception
         private void checkShapeEqual(Tensor A)
         {
@@ -164,14 +155,15 @@ namespace NEA.Tensor
             }
         }
 
-        // Checks that this tensor and a matrix are of equal dimensions. 
+        // Checks that this tensor and a matrix are of equal dimensions.
         // This method is only called in situations where mismatched dimensions would cause a fatal error, hence it throws an exception
         private void checkShapeEqual(Matrix A)
         {
             if (A.Shape[0] == Shape[1] && A.Shape[1] == Shape[2])
             {
                 return;
-            } else
+            }
+            else
             {
                 throw new Exception("Tensor dimensions do not conform");
             }
@@ -188,6 +180,7 @@ namespace NEA.Tensor
                 data[i].Add(A.GetItem(i));
             }
         }
+
         /// <summary>
         /// Adds Matrix A to this Tensor.
         /// </summary>
@@ -211,6 +204,7 @@ namespace NEA.Tensor
                 data[i].Hadamard(A.GetItem(i));
             }
         }
+
         /// <summary>
         /// Performs a Hadamard (elementwise) multiplication on this Tensor.
         /// </summary>
@@ -224,7 +218,7 @@ namespace NEA.Tensor
         }
 
         /// <summary>
-        /// Calculates the dot product between the matricies contained in two tensors. 
+        /// Calculates the dot product between the matricies contained in two tensors.
         /// </summary>
         /// <returns>An array of matrix dot products</returns>
         public float[] Dot(Tensor A)
@@ -237,8 +231,9 @@ namespace NEA.Tensor
             }
             return dotp;
         }
+
         /// <summary>
-        /// Calculates the dot product between the matricies contained in this tensor and matrix A. 
+        /// Calculates the dot product between the matricies contained in this tensor and matrix A.
         /// </summary>
         /// <returns>An array of matrix dot products.</returns>
         public float[] Dot(Matrix A)
@@ -265,15 +260,16 @@ namespace NEA.Tensor
                 }
             }
         }
+
         /// <summary>
         /// Performs a matrix transformation on the matricies contained in this tensor.
         /// </summary>
         public void Transform(Matrix A)
         {
-                for (int i = 0; i < Shape[0]; i++)
-                {
-                    data[i].Transform(A);
-                }
+            for (int i = 0; i < Shape[0]; i++)
+            {
+                data[i].Transform(A);
+            }
         }
 
         /// <summary>
@@ -305,7 +301,7 @@ namespace NEA.Tensor
         }
 
         /// <summary>
-        /// Returns the tensor as an array of 2d float arrays. 
+        /// Returns the tensor as an array of 2d float arrays.
         /// </summary>
         public float[][,] ToArray()
         {
