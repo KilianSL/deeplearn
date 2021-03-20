@@ -1,0 +1,66 @@
+﻿namespace NEA.NeuralNetwork.ActivationFunctions
+{
+    using Tensor;
+    /// <summary>
+    /// Provides static functional implementations of neural network activation functions. 
+    /// </summary>
+    static class ActivationFunctions
+    {
+        /// <summary>
+        /// Applies the element-wise sigmoid function.
+        /// </summary>
+        /// <param name="x">The input tensor.</param>
+        /// <returns>The input tensor, with the sigmoid function applied to each value.</returns>
+        /// 
+        public static Tensor Sigmoid(Tensor x) { }
+        /// <summary>
+        /// Applies the element-wise sigmoid function.
+        /// </summary>
+        /// <param name="x">The input matrix.</param>
+        /// <returns>The input matrix, with the sigmoid function applied to each value.</returns>
+        /// 
+        public static Matrix Sigmoid(Matrix x) { }
+        /// <summary>
+        /// Applies the element-wise rectified linear unit function.
+        /// </summary>
+        /// <param name="x">The input tensor.</param>
+        /// <returns>The input tensor, with the rectified linear unit function applied to each value.</returns>
+        /// 
+        public static Tensor ReLU(Tensor x) { }
+        /// <summary>
+        /// Applies the element-wise rectified linear unit function.
+        /// </summary>
+        /// <param name="x">The input matrix.</param>
+        /// <returns>The input matrix, with the rectified linear unit function applied to each value.</returns>
+        /// 
+        public static Matrix ReLU(Matrix x) { }
+        /// <summary>
+        /// Applies the element-wise hyperbolic tangent function.
+        /// </summary>
+        /// <param name="x">The input tensor.</param>
+        /// <returns>The input tensor, with the hyperbolic tangent function applied to each value.</returns>
+        /// 
+        public static Tensor Tanh(Tensor x) { }
+        /// <summary>
+        /// Applies the element-wise hyperbolic tangent function.
+        /// </summary>
+        /// <param name="x">The input matrix.</param>
+        /// <returns>The input matrix, with the hyperbolic tangent function applied to each value.</returns>
+        /// 
+        public static Matrix Tanh(Matrix x) { }
+        /// <summary>
+        /// Applies the Softmax function to each batch of an n-dimensional input tensor rescaling them so that the elements of the n-dimensional output tensor lie in the range [0,1] and sum to 1.
+        /// </summary>
+        /// <param name="x">The input tensor.</param>
+        /// <returns>The input tensor, with the softmax function applied to each batch.</returns>
+        /// 
+        public static Tensor Softmax(Tensor x) { }
+        /// <summary>
+        /// Applies the Softmax function to an input matrix, rescaling each element so that the elements of the matrix lie in the range [0,1] and sum to 1.
+        /// </summary>
+        /// <param name="x">The input matrix.</param>
+        /// <returns>The input matrix, with the softmax function applied.</returns>
+        public static Matrix Softmax(Matrix x) { }
+
+    }
+}
