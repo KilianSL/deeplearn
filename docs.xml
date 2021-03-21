@@ -4,12 +4,12 @@
         <name>NEA</name>
     </assembly>
     <members>
-        <member name="T:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions">
+        <member name="T:NEA.NeuralNetwork.ActivationFunctions">
             <summary>
             Provides static functional implementations of neural network activation functions.
             </summary>
         </member>
-        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Sigmoid(NEA.Tensor.Tensor)">
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.Sigmoid(NEA.Tensor.Tensor)">
              <summary>
              Applies the element-wise sigmoid function.
              </summary>
@@ -17,7 +17,7 @@
              <returns>The input tensor, with the sigmoid function applied to each value.</returns>
             
         </member>
-        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Sigmoid(NEA.Tensor.Matrix)">
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.Sigmoid(NEA.Tensor.Matrix)">
              <summary>
              Applies the element-wise sigmoid function.
              </summary>
@@ -25,7 +25,7 @@
              <returns>The input matrix, with the sigmoid function applied to each value.</returns>
             
         </member>
-        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.ReLU(NEA.Tensor.Tensor)">
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ReLU(NEA.Tensor.Tensor)">
              <summary>
              Applies the element-wise rectified linear unit function.
              </summary>
@@ -33,7 +33,7 @@
              <returns>The input tensor, with the rectified linear unit function applied to each value.</returns>
             
         </member>
-        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.ReLU(NEA.Tensor.Matrix)">
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ReLU(NEA.Tensor.Matrix)">
              <summary>
              Applies the element-wise rectified linear unit function.
              </summary>
@@ -41,7 +41,7 @@
              <returns>The input matrix, with the rectified linear unit function applied to each value.</returns>
             
         </member>
-        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Tanh(NEA.Tensor.Tensor)">
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.Tanh(NEA.Tensor.Tensor)">
              <summary>
              Applies the element-wise hyperbolic tangent function.
              </summary>
@@ -49,7 +49,7 @@
              <returns>The input tensor, with the hyperbolic tangent function applied to each value.</returns>
             
         </member>
-        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Tanh(NEA.Tensor.Matrix)">
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.Tanh(NEA.Tensor.Matrix)">
              <summary>
              Applies the element-wise hyperbolic tangent function.
              </summary>
@@ -57,7 +57,7 @@
              <returns>The input matrix, with the hyperbolic tangent function applied to each value.</returns>
             
         </member>
-        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Softmax(NEA.Tensor.Tensor)">
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.Softmax(NEA.Tensor.Tensor)">
              <summary>
              Applies the Softmax function to each batch of an n-dimensional input tensor rescaling them so that the elements of the n-dimensional output tensor lie in the range [0,1] and sum to 1.
              </summary>
@@ -65,7 +65,7 @@
              <returns>The input tensor, with the softmax function applied to each batch.</returns>
             
         </member>
-        <member name="M:NEA.NeuralNetwork.ActivationFunctions.ActivationFunctions.Softmax(NEA.Tensor.Matrix)">
+        <member name="M:NEA.NeuralNetwork.ActivationFunctions.Softmax(NEA.Tensor.Matrix)">
             <summary>
             Applies the Softmax function to an input matrix, rescaling each element so that the elements of the matrix lie in the range [0,1] and sum to 1.
             </summary>
@@ -157,6 +157,43 @@
             <summary>
             Randomly initialises the weights for the layer. Biases are initialised to 0.
             </summary>
+        </member>
+        <member name="T:NEA.NeuralNetwork.LossFunctions">
+            <summary>
+            Provides static functional implementations of statistical loss/error functions.
+            </summary>
+        </member>
+        <member name="M:NEA.NeuralNetwork.LossFunctions.MSELoss(NEA.Tensor.Tensor,NEA.Tensor.Tensor)">
+            <summary>
+            Measures the mean squared error (squared L2 norm) between each element of each batch in the input x and target y.
+            </summary>
+            <param name="x">The input.</param>
+            <param name="y">The target.</param>
+            <returns>An array showing the the mean squared error (squared L2 norm) of each batch of the input x and target y.</returns>
+        </member>
+        <member name="M:NEA.NeuralNetwork.LossFunctions.MSELoss(NEA.Tensor.Matrix,NEA.Tensor.Matrix)">
+            <summary>
+            Measures the mean squared error (squared L2 norm) between each element in the input x and target y.
+            </summary>
+            <param name="x">The input.</param>
+            <param name="y">The target.</param>
+            <returns>A float showing the the mean squared error (squared L2 norm) between each element of the input x and target y.</returns>
+        </member>
+        <member name="M:NEA.NeuralNetwork.LossFunctions.CrossEntropyLoss(NEA.Tensor.Tensor,NEA.Tensor.Tensor)">
+            <summary>
+            Measures the cross entropy loss between each element in the input x and target y.
+            </summary>
+            <param name="x">The input, containing the raw, unnormalized scores for each class.</param>
+            <param name="y">The target, a batch of one-hot vectors.</param>
+            <returns>A float array showing the cross entropy loss of each batch of the input x and target y.</returns>
+        </member>
+        <member name="M:NEA.NeuralNetwork.LossFunctions.CrossEntropyLoss(NEA.Tensor.Matrix,NEA.Tensor.Matrix)">
+            <summary>
+            Measures the cross entropy loss between each element in the input x and target y.
+            </summary>
+            <param name="x">The input, containing the raw, unnormalized scores for each class.</param>
+            <param name="y">The target, a one-hot vector.</param>
+            <returns>A float showing the cross entropy loss of the input x and target y.</returns>
         </member>
         <member name="T:NEA.Tensor.Matrix">
             <summary>
