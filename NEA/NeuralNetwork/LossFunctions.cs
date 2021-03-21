@@ -46,10 +46,6 @@ namespace NEA.NeuralNetwork
         public static float[] MSELoss(Tensor x, Tensor y)
         {
             checkShapeEqual(x, y);
-            if (x.Shape[2] != 1)
-            {
-                throw new Exception("Input tensor must have column dimension 1.");
-            }
             var loss = new float[x.Shape[0]]; ;
             for (int i = 0; i < x.Shape[0]; i++)
             {
@@ -67,11 +63,6 @@ namespace NEA.NeuralNetwork
         public static float MSELoss(Matrix x, Matrix y)
         {
             checkShapeEqual(x, y);
-            // If x is not a column AND y -> IEnumerable -> list of anything that isn't 0 or 1 -> has any elements
-            if (x.Shape[2] != 1 && y.Cast<float>().Where(i => i != 0 || i != 1).Any())
-            {
-                throw new Exception("Input matrix must have column dimension 1 and target matrix must be one-hot encoded");
-            }
             float loss = 0; // accumulator for the total loops
             float nItems = x.Shape[0] * x.Shape[1]; // total number of items in the matrix.
             for (int i = 0; i < x.Shape[0]; i++)
@@ -94,10 +85,14 @@ namespace NEA.NeuralNetwork
         public static float[] CrossEntropyLoss(Tensor x, Tensor y)
         {
             checkShapeEqual(x, y);
+            if (x.Shape[2] != 1)
+            {
+                throw new Exception("Input tensor must have column dimension 1.");
+            }
             var loss = new float[x.Shape[0]];
             for (int i = 0; i < x.Shape[0]; i++)
             {
-                CrossEntropyLoss(x[i], y[i]);
+                loss[i] = CrossEntropyLoss(x[i], y[i]);
             }
             return loss;
         }
@@ -110,6 +105,11 @@ namespace NEA.NeuralNetwork
         /// <returns>A float showing the cross entropy loss of the input x and target y.</returns>
         public static float CrossEntropyLoss(Matrix x, Matrix y)
         {
+            // If x is not a column AND y -> IEnumerable -> list of anything that isn't 0 or 1 -> has any elements
+            if (x.Shape[1] != 1 && y.Cast<float>().Where(i => i != 0 || i != 1).Any())
+            {
+                throw new Exception("Input matrix must have column dimension 1 and target matrix must be one-hot encoded");
+            }
             float loss = 0;
             int targetIdx = 0;
             for (int i = 0; i < x.Shape[0]; i++)

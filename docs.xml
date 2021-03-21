@@ -89,6 +89,13 @@
             During training, randomly zeroes some of the elements of the input tensor with probability p using samples from a uniform distribution.
             </summary>
         </member>
+        <member name="M:NEA.NeuralNetwork.Layers.Dropout.#ctor(System.Int32,System.Single)">
+            <summary>
+            Creates a new dropout layer with the specified input size and dropout probability p.
+            </summary>
+            <param name="InputSize">The size of the input sample.</param>
+            <param name="p">The probability of a value being reduced to 0.</param>
+        </member>
         <member name="M:NEA.NeuralNetwork.Layers.Dropout.Forward(NEA.Tensor.Tensor)">
             <summary>
             During training, randomly zeroes some of the elements of the input tensor with probability p using samples from a uniform distribution.

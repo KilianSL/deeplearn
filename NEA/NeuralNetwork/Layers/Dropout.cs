@@ -11,9 +11,14 @@ namespace NEA.NeuralNetwork.Layers
     {
         private readonly float p; // The p value for the dropout function
 
+        /// <summary>
+        /// Creates a new dropout layer with the specified input size and dropout probability p.
+        /// </summary>
+        /// <param name="InputSize">The size of the input sample.</param>
+        /// <param name="p">The probability of a value being reduced to 0.</param>
         public Dropout(int InputSize, float p)
         {
-            if (0 < p && p < 1)
+            if (0.0f > p || p > 1.0f)
             {
                 throw new Exception("p value must be between 0 and 1");
             }

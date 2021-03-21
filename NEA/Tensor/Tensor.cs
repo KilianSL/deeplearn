@@ -16,7 +16,16 @@ namespace NEA.Tensor
         /// <summary>
         /// The shape of the tensor in order [batches, matrix_rows, matrix_columns]
         /// </summary>
-        public int[] Shape { get; private set; }
+        public int[] Shape
+        {
+            get
+            {
+                return new int[] { data.Length, data[0].Shape[0], data[0].Shape[1] };
+            }
+            private set
+            {
+            }
+        }
 
         /// <summary>
         /// Initialises an empty tensor with the specified number of rows, columns and batches.

@@ -1,5 +1,7 @@
 ﻿using NEA.Utils.Data;
+using NEA.NeuralNetwork;
 using System;
+using System.Linq;
 
 namespace iris_dataset_test
 {
@@ -20,7 +22,17 @@ namespace iris_dataset_test
             }
             res = string.Concat(res, ']');
             return res;
+        }
 
+        private static string arrayToString(float[] arr)
+        {
+            string res = "[";
+            foreach (var item in arr)
+            {
+                res = string.Concat(res, item.ToString() + ',');
+            }
+            res = string.Concat(res, ']');
+            return res;
         }
 
         private static void Main(string[] args)
@@ -58,6 +70,31 @@ namespace iris_dataset_test
             Console.WriteLine(dataloader.TrainSet[0].input.GetItem(0).ToString());
             Console.WriteLine("1st Output Vector:");
             Console.WriteLine(dataloader.TrainSet[0].output.GetItem(0).ToString());
+
+            // Initialise neural network model
+            var model = new Model();
+            Console.WriteLine();
+            Console.WriteLine("************************************ Starting Training ************************************");
+            // Training Loop
+            // Will only loop over dataset once, as backprop not yet implemented so there is no sense in using multiple epochs
+            for (int i = 0; i < dataloader.TrainSet.Length; i++)
+            {
+                var batch = dataloader.TrainSet[i];
+                var x = batch.input;
+                var actualOutput = batch.output;
+
+                Console.WriteLine("Training batch {0} of {1}", i + 1, dataloader.TrainSet.Length);
+                Console.WriteLine("First input of batch:\n{0}", x[0].ToString());
+
+                var prediction = model.Forward(x);
+                float[] batchLosses = LossFunctions.CrossEntropyLoss(prediction, actualOutput);
+                float averageLoss = batchLosses.Sum() / BATCH_SIZE;
+
+                Console.WriteLine("Actual Output:\n{0}", actualOutput[0].ToString());
+                Console.WriteLine("Predicted Output:\n{0}", prediction[0].ToString());
+                Console.WriteLine("Batch Loss: {0}", averageLoss);
+                Console.WriteLine();
+            }
         }
     }
 }

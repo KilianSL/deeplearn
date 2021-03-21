@@ -14,7 +14,14 @@ namespace NEA.Tensor
         /// <summary>
         /// The dimensions of the matrix, in order [rows,columns].
         /// </summary>
-        public int[] Shape { get; private set; } // Shape can only be set internally, but the field is publically accessible
+        public int[] Shape
+        {
+            get
+            {
+                return new int[] { data.GetLength(0), data.GetLength(1) };
+            }
+            private set { }
+        }
 
         /// <summary>
         /// Initialises an empty matrix with the specified number of rows and columns.
